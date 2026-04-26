@@ -2,91 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>📸 PRO STUDIO | Sequence Booth · Smart Colleges · Sticker Studio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>✨ PRO PHOTOBOOTH | Drag Emojis · College Themes · Mobile Optimized</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background: radial-gradient(circle at 10% 20%, #0a0f1e, #03060f);
+            background: radial-gradient(circle at 10% 20%, #0a0f1e, #02040c);
             min-height: 100vh;
-            padding: 24px;
+            padding: 12px;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
-        /* Glassmorphic container */
         .app-container {
-            max-width: 1600px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
         /* Header */
         .hero {
             text-align: center;
-            margin-bottom: 28px;
+            margin-bottom: 16px;
         }
         .hero h1 {
-            font-size: 2.6rem;
+            font-size: 1.6rem;
             background: linear-gradient(135deg, #FFE6B0, #FFB347, #FF8A5C);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 12px;
-            letter-spacing: -0.5px;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
         .hero p {
             color: #a0a8c0;
-            margin-top: 6px;
+            font-size: 0.8rem;
         }
 
-        /* Dashboard Grid */
+        /* Dashboard Grid - Mobile First */
         .dashboard {
             display: flex;
-            flex-wrap: wrap;
-            gap: 24px;
+            flex-direction: column;
+            gap: 16px;
         }
 
-        /* Panels */
+        @media (min-width: 1000px) {
+            .dashboard {
+                flex-direction: row;
+            }
+            .camera-panel { flex: 2; }
+            .edit-panel { flex: 1.3; }
+            .college-panel { flex: 1.8; }
+            body { padding: 20px; }
+            .hero h1 { font-size: 2.2rem; }
+        }
+
         .panel {
-            background: rgba(18, 24, 40, 0.75);
+            background: rgba(15, 20, 35, 0.85);
             backdrop-filter: blur(16px);
-            border-radius: 44px;
-            border: 1px solid rgba(255, 200, 120, 0.25);
-            padding: 24px;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
-            transition: all 0.2s;
+            border-radius: 32px;
+            border: 1px solid rgba(255, 200, 120, 0.3);
+            padding: 16px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.4);
         }
 
-        .camera-panel {
-            flex: 2.2;
-            min-width: 320px;
-        }
-
-        .control-panel {
-            flex: 1.5;
-            min-width: 280px;
-        }
-
-        .college-panel {
-            flex: 1.8;
-            min-width: 300px;
-        }
-
-        /* Video Box */
+        /* Video Stage - Responsive Ratio */
         .video-stage {
             position: relative;
             background: #000;
-            border-radius: 36px;
+            border-radius: 28px;
             overflow: hidden;
+            width: 100%;
             aspect-ratio: 4 / 3;
-            box-shadow: 0 20px 30px rgba(0,0,0,0.6);
-            border: 2px solid rgba(255, 180, 70, 0.5);
+            border: 2px solid #ffaa55;
         }
         video, #liveCanvas {
             position: absolute;
@@ -99,286 +94,310 @@
         video { transform: scaleX(-1); }
         #liveCanvas { pointer-events: none; }
 
-        /* Buttons & UI */
+        /* Buttons */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 18px;
+            gap: 8px;
+            margin-top: 12px;
         }
         .btn {
             background: #1f253e;
             border: none;
-            padding: 10px 20px;
-            border-radius: 50px;
+            padding: 8px 14px;
+            border-radius: 40px;
             font-weight: 600;
             color: #f0f3ff;
             cursor: pointer;
             transition: 0.15s;
+            font-size: 0.8rem;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            gap: 5px;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #ff8c42, #ff5e1a);
-            color: white;
-            box-shadow: 0 8px 18px #ff5e1a40;
-        }
-        .btn-primary:hover { transform: scale(0.96); background: #ff6e2c; }
+        .btn-primary { background: linear-gradient(135deg, #ff8c42, #ff5e1a); color: white; }
         .btn-success { background: #2c9e5a; }
-        .btn-warning { background: #e67e22; }
         .btn-danger { background: #c0392b; }
+        .btn-warning { background: #e67e22; }
 
-        .slider-label {
-            display: flex;
-            justify-content: space-between;
-            margin: 12px 0 5px;
-            color: #ffdd99;
-        }
-        input[type="range"], input[type="number"] {
-            background: #1e253e;
-            border: 1px solid #ffb347;
-            border-radius: 40px;
-            padding: 8px 12px;
-            color: white;
-            width: 100%;
-        }
-
-        /* Stickers gallery */
-        .sticker-pack {
+        /* Gallery */
+        .gallery-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-            max-height: 140px;
-            overflow-y: auto;
-            padding: 5px;
-        }
-        .sticker-icon {
-            background: #2a2f4e;
-            font-size: 2rem;
-            padding: 8px;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: 0.07s linear;
-            width: 58px;
-            text-align: center;
-            border: 1px solid #ffaa55;
-        }
-        .sticker-icon:active { transform: scale(0.9); }
-
-        /* College Layout Grids */
-        .layout-selector {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin: 12px 0;
-        }
-        .layout-badge {
-            background: #232844;
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 0.8rem;
-            cursor: pointer;
-            border: 1px solid #6a6f96;
-        }
-        .layout-badge.active-layout {
-            background: #ff8c42;
-            color: #1e1a10;
-            border-color: #ffcf8a;
-        }
-        .strip-preview {
-            background: #0b0e1a;
-            border-radius: 24px;
-            padding: 12px;
-            min-height: 140px;
-            display: flex;
             gap: 8px;
-            flex-wrap: wrap;
-            margin: 12px 0;
+            max-height: 120px;
+            overflow-y: auto;
+            margin-top: 10px;
+            padding: 4px;
         }
-        .preview-img {
-            width: 70px;
-            height: 70px;
+        .gallery-img {
+            width: 65px;
+            height: 65px;
             object-fit: cover;
-            border-radius: 16px;
-            border: 2px solid #ffaa55;
-        }
-        .gallery-thumb {
-            width: 72px;
-            height: 72px;
-            border-radius: 20px;
-            object-fit: cover;
-            cursor: pointer;
+            border-radius: 14px;
             border: 2px solid #ffb347;
+            cursor: pointer;
             transition: 0.1s;
         }
+
+        /* College Canvas Container */
+        .college-canvas-container {
+            background: #0b0e1a;
+            border-radius: 24px;
+            padding: 10px;
+            margin: 12px 0;
+            position: relative;
+        }
+        #collegeCanvas {
+            width: 100%;
+            border-radius: 18px;
+            background: #1a1f2e;
+            cursor: crosshair;
+            display: block;
+            touch-action: none;
+        }
+        .theme-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        .theme-chip {
+            background: #232844;
+            padding: 5px 12px;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+        .theme-chip.active {
+            background: #ff8c42;
+            color: #1e1a10;
+        }
+
+        .emoji-toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+            max-height: 90px;
+            overflow-y: auto;
+        }
+        .emoji-btn {
+            font-size: 1.6rem;
+            background: #2a2f4e;
+            padding: 5px;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 48px;
+            text-align: center;
+            transition: 0.07s;
+        }
         .section-title {
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: bold;
-            margin: 15px 0 8px 0;
+            margin: 12px 0 6px 0;
             color: #ffdead;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
-        /* countdown animation */
-        .countdown-badge {
-            background: #000000aa;
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffdd99ee;
             backdrop-filter: blur(12px);
-            padding: 12px 24px;
-            border-radius: 100px;
-            font-size: 2rem;
+            padding: 8px 20px;
+            border-radius: 50px;
             font-weight: bold;
-            text-align: center;
-            margin-top: 10px;
+            opacity: 0;
+            transition: 0.2s;
+            z-index: 9999;
+            font-size: 0.85rem;
+            pointer-events: none;
         }
 
-        @media (max-width: 950px) {
-            body { padding: 12px; }
-            .dashboard { flex-direction: column; }
+        input, select {
+            background: #1f253e;
+            border: 1px solid #ffb347;
+            border-radius: 30px;
+            padding: 6px 12px;
+            color: white;
+            font-size: 0.8rem;
+        }
+        #activeEmojisList {
+            background: #0b0e1c;
+            border-radius: 20px;
+            padding: 8px;
+            min-height: 70px;
+            font-size: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+        .emoji-badge {
+            background: #2a2f4e;
+            border-radius: 30px;
+            padding: 4px 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.1rem;
         }
     </style>
 </head>
 <body>
 <div class="app-container">
     <div class="hero">
-        <h1><span>🎭</span> SEQUENCE PHOTOBOOTH · SMART COLLEGES <span>✨</span></h1>
-        <p>set number of shots | auto college layout with multiple designs | huge sticker studio</p>
+        <h1>🎨 DRAG·N·DRAW COLLEGE · THEMES · EMOJI EDITOR 🎭</h1>
+        <p>📸 Capture | ✨ Add Emojis on College (drag anywhere) | 🎨 Choose Theme | 👇 Mobile Ready</p>
     </div>
 
     <div class="dashboard">
-        <!-- LEFT: CAMERA + SEQUENCE CONFIG -->
+        <!-- CAMERA PANEL -->
         <div class="panel camera-panel">
             <div class="video-stage">
                 <video id="video" autoplay playsinline muted></video>
                 <canvas id="liveCanvas"></canvas>
             </div>
-            <div class="slider-label">
-                <span>📸 NUMBER OF IMAGES TO CLICK:</span>
-                <span id="shotCountValue">4</span>
-            </div>
-            <input type="range" id="shotCountSlider" min="1" max="8" value="4" step="1">
             <div class="btn-group">
-                <button id="startSequenceBtn" class="btn btn-primary">🎬 START SEQUENCE (auto capture)</button>
-                <button id="forceCaptureBtn" class="btn">⚡ Single Snap</button>
-                <button id="clearGalleryBtn" class="btn btn-danger">🗑️ Clear All</button>
+                <button id="captureBtn" class="btn btn-primary">📸 Snap</button>
+                <button id="sequenceBtn" class="btn">🎬 Sequence</button>
+                <button id="clearGalleryBtn" class="btn btn-danger">🗑️ Clear</button>
             </div>
-            <div id="sequenceStatus" class="countdown-badge" style="font-size: 1.2rem; padding: 8px;">Ready</div>
-            <div class="section-title"><span>🖼️</span> CAPTURED PHOTOS (click to add to college)</div>
-            <div id="galleryArea" style="display: flex; flex-wrap: wrap; gap: 10px; max-height: 140px; overflow-y: auto;"></div>
+            <div style="margin: 8px 0; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                <label>📸 Shots:</label>
+                <input type="number" id="shotCount" min="1" max="8" value="4" style="width: 65px;">
+                <span id="seqStatus" style="color: #ffcc88; font-size:0.8rem;">Ready</span>
+            </div>
+            <div class="section-title">📷 My Photos (tap to add to college)</div>
+            <div id="galleryContainer" class="gallery-grid"></div>
         </div>
 
-        <!-- MIDDLE: STICKERS + FILTERS + SEQUENCE FEEDBACK -->
-        <div class="panel control-panel">
-            <div class="section-title"><span>🎨</span> INSTANT FILTERS</div>
+        <!-- EDIT PANEL: FILTERS + EMOJI LIBRARY -->
+        <div class="panel edit-panel">
+            <div class="section-title">🎨 Live Filters</div>
             <div class="btn-group" id="filterGroup">
-                <div data-filter="none" class="btn active-layout" style="background:#ff8c42;">Normal</div>
+                <div data-filter="none" class="btn active" style="background:#ff8c42;">Normal</div>
                 <div data-filter="grayscale" class="btn">Grayscale</div>
                 <div data-filter="sepia" class="btn">Sepia</div>
                 <div data-filter="vintage" class="btn">Vintage</div>
-                <div data-filter="invert" class="btn">Invert</div>
-                <div data-filter="cool" class="btn">❄️ Cool</div>
+                <div data-filter="cool" class="btn">Cool Blue</div>
             </div>
 
-            <div class="section-title"><span>😜</span> PREMIUM STICKER PACK</div>
-            <div class="sticker-pack" id="stickerPack">
-                <!-- dynamic stickers from categories -->
+            <div class="section-title">😜 Emoji Library (drag on college canvas)</div>
+            <div class="emoji-toolbar" id="emojiLibrary"></div>
+            <div style="display: flex; gap: 6px; margin: 6px 0;">
+                <input type="text" id="customEmojiInput" placeholder="➕ Custom emoji/text" maxlength="4" style="flex:1;">
+                <button id="addCustomEmojiBtn" class="btn">Add</button>
             </div>
-            <div style="display: flex; gap: 10px; margin: 8px 0;">
-                <input type="text" id="customStickerInput" placeholder="➕ Custom emoji/text" maxlength="4" style="flex:1; background:#1e253e; border-radius:40px; padding:8px; border:1px solid #ffbb77;">
-                <button id="addCustomStickerBtn" class="btn">Add</button>
-                <button id="clearAllStickersBtn" class="btn btn-danger">Clear Stickers</button>
-            </div>
-            <div id="activeStickersList" style="background:#0b0e1c; border-radius: 32px; padding: 10px; margin-top: 12px; max-height: 120px; overflow-y: auto; font-size:0.85rem;"></div>
+            <div class="section-title">📌 College Emojis (click to remove)</div>
+            <div id="activeEmojisList"></div>
+            <button id="clearAllEmojisBtn" class="btn btn-danger" style="width:100%; margin-top: 8px;">Clear All Emojis</button>
         </div>
 
-        <!-- RIGHT: COLLEGE BUILDER & LAYOUTS -->
+        <!-- COLLEGE PANEL: THEMES + DRAG CANVAS + PREVIEW -->
         <div class="panel college-panel">
-            <div class="section-title"><span>🎓</span> COLLEGE DESIGNER</div>
-            <div class="layout-selector" id="layoutSelector">
-                <div data-layout="grid" class="layout-badge active-layout">📐 Grid (auto-fit)</div>
-                <div data-layout="strip-h" class="layout-badge">📸 Horizontal Strip</div>
-                <div data-layout="strip-v" class="layout-badge">📸 Vertical Strip</div>
-                <div data-layout="polaroid" class="layout-badge">🖼️ Polaroid Style</div>
+            <div class="section-title">🎓 College Studio (Drag & Drop Emojis on Canvas)</div>
+            <div class="theme-buttons" id="themeContainer">
+                <div data-theme="fun" class="theme-chip active">🎉 FUN</div>
+                <div data-theme="love" class="theme-chip">❤️ LOVE</div>
+                <div data-theme="funny" class="theme-chip">😂 FUNNY</div>
+                <div data-theme="elegant" class="theme-chip">✨ ELEGANT</div>
+                <div data-theme="retro" class="theme-chip">📻 RETRO</div>
             </div>
-            <div id="collegePreviewArea" class="strip-preview">
-                <div style="color:#9a9fc0;">✨ College preview will appear here after capture sequence or adding photos</div>
+            <div class="college-canvas-container">
+                <canvas id="collegeCanvas" width="600" height="450" style="width:100%; height:auto; background:#1e233b; border-radius: 20px; touch-action: none;"></canvas>
+                <p style="font-size:11px; color:#aaa; text-align:center; margin-top:5px;">👇 Drag any emoji from library & drop on canvas! Tap existing emoji to remove.</p>
             </div>
             <div class="btn-group">
-                <button id="generateCollegeFromGalleryBtn" class="btn btn-success">✨ Generate College (All captured)</button>
-                <button id="downloadCollegeBtn" class="btn btn-primary">⬇️ Download College</button>
-                <button id="saveCollegePresetBtn" class="btn">💾 Save Preset</button>
-                <button id="clearCollegeBtn" class="btn btn-danger">Clear College</button>
+                <button id="generateCollegeBtn" class="btn btn-success">🖼️ Load Gallery Photos</button>
+                <button id="previewCollegeBtn" class="btn btn-primary">👁️ Full Preview</button>
+                <button id="downloadCollegeBtn" class="btn">⬇️ Download College</button>
+                <button id="resetCollegeBtn" class="btn btn-danger">Reset Canvas</button>
             </div>
-            <div class="section-title"><span>📚</span> SAVED COLLEGE PRESETS</div>
-            <div id="savedPresetsList" style="max-height: 160px; overflow-y: auto;"></div>
+            <div class="section-title">📚 Saved Colleges (click to preview)</div>
+            <div id="savedPreviews" style="display: flex; gap: 8px; overflow-x: auto; padding: 5px;"></div>
         </div>
     </div>
 </div>
-<div id="toastMsg" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#ffdd99cc; backdrop-filter:blur(12px); padding:10px 22px; border-radius:40px; font-weight:bold; opacity:0; transition:0.2s; z-index:9999;"></div>
+<div id="toastMsg" class="toast">✨</div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <script>
     // ---------- DOM Elements ----------
     const video = document.getElementById('video');
     const liveCanvas = document.getElementById('liveCanvas');
-    const shotCountSlider = document.getElementById('shotCountSlider');
-    const shotCountValue = document.getElementById('shotCountValue');
-    const startSequenceBtn = document.getElementById('startSequenceBtn');
-    const forceCaptureBtn = document.getElementById('forceCaptureBtn');
+    const captureBtn = document.getElementById('captureBtn');
+    const sequenceBtn = document.getElementById('sequenceBtn');
+    const shotCountInput = document.getElementById('shotCount');
+    const seqStatus = document.getElementById('seqStatus');
     const clearGalleryBtn = document.getElementById('clearGalleryBtn');
-    const galleryArea = document.getElementById('galleryArea');
-    const sequenceStatusDiv = document.getElementById('sequenceStatus');
+    const galleryContainer = document.getElementById('galleryContainer');
     const filterGroup = document.getElementById('filterGroup');
-    const stickerPackDiv = document.getElementById('stickerPack');
-    const customStickerInput = document.getElementById('customStickerInput');
-    const addCustomStickerBtn = document.getElementById('addCustomStickerBtn');
-    const clearAllStickersBtn = document.getElementById('clearAllStickersBtn');
-    const activeStickersListDiv = document.getElementById('activeStickersList');
-    const layoutSelectorDiv = document.getElementById('layoutSelector');
-    const collegePreviewArea = document.getElementById('collegePreviewArea');
-    const generateCollegeBtn = document.getElementById('generateCollegeFromGalleryBtn');
+    const emojiLibraryDiv = document.getElementById('emojiLibrary');
+    const customEmojiInput = document.getElementById('customEmojiInput');
+    const addCustomEmojiBtn = document.getElementById('addCustomEmojiBtn');
+    const activeEmojisListDiv = document.getElementById('activeEmojisList');
+    const clearAllEmojisBtn = document.getElementById('clearAllEmojisBtn');
+    const generateCollegeBtn = document.getElementById('generateCollegeBtn');
+    const previewCollegeBtn = document.getElementById('previewCollegeBtn');
     const downloadCollegeBtn = document.getElementById('downloadCollegeBtn');
-    const saveCollegePresetBtn = document.getElementById('saveCollegePresetBtn');
-    const clearCollegeBtn = document.getElementById('clearCollegeBtn');
-    const savedPresetsList = document.getElementById('savedPresetsList');
+    const resetCollegeBtn = document.getElementById('resetCollegeBtn');
+    const savedPreviewsDiv = document.getElementById('savedPreviews');
+    const collegeCanvas = document.getElementById('collegeCanvas');
+    const ctx = collegeCanvas.getContext('2d');
     const toastEl = document.getElementById('toastMsg');
 
-    // ---------- State ----------
-    let capturedPhotos = []; // array of { dataUrl, timestamp }
+    // ---------- App State ----------
+    let capturedPhotos = [];      // { dataUrl, timestamp }
     let activeFilter = 'none';
-    let activeStickers = []; // { sticker, x, y }
-    let currentCollegePhotos = []; // dataUrls for college
-    let currentLayout = 'grid';    // grid, strip-h, strip-v, polaroid
     let animationId = null;
-    let isCapturingSequence = false;
+    let currentCollegePhotos = []; // array of Image objects or dataUrls
+    let collegeEmojis = [];        // { emoji, x, y, id }
+    let currentTheme = 'fun';
+    let isDraggingEmoji = false;
+    let dragTargetId = null;
+    let dragOffsetX = 0, dragOffsetY = 0;
+    let nextEmojiId = 1;
+    let canvasWidth = 600, canvasHeight = 450;
 
-    // sticker library (different types)
-    const stickerLibrary = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '😎', '🥳', '😍', '🔥', '✨', '🌟', '⭐', '❤️', '💋', '👑', '🎩', '🌈', '🍕', '🍔', '⚡', '🎈', '🎉', '💎', '🤖', '👻', '🎃', '💀', '🦄'];
+    // resize canvas dynamically
+    function resizeCanvasDimensions() {
+        const rect = collegeCanvas.getBoundingClientRect();
+        canvasWidth = rect.width;
+        canvasHeight = rect.height;
+        collegeCanvas.width = canvasWidth;
+        collegeCanvas.height = canvasHeight;
+        renderCollegeCanvas();
+    }
+    window.addEventListener('resize', () => { resizeCanvasDimensions(); });
 
-    // Helper: Toast
-    function showToast(msg, duration = 1800) {
+    // Toast
+    function showToast(msg, duration = 1500) {
         toastEl.innerText = msg;
         toastEl.style.opacity = '1';
         setTimeout(() => toastEl.style.opacity = '0', duration);
     }
 
-    // ---------- Camera & Filters + Stickers (Live Preview) ----------
+    // ---------- Camera Setup (with aspect ratio fixed) ----------
     async function initCamera() {
         try {
-            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: 1280, height: 720 } });
+            // Mobile-friendly: request ideal resolution but maintain 4:3
+            const stream = await navigator.mediaDevices.getUserMedia({
+                video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 720 } }
+            });
             video.srcObject = stream;
             await video.play();
-            resizeCanvas();
+            resizeLiveCanvas();
             startLiveRender();
-        } catch (err) { alert("Camera needed for magic!"); }
+        } catch (err) { alert("Please allow camera access"); }
     }
 
-    function resizeCanvas() {
+    function resizeLiveCanvas() {
         const container = document.querySelector('.video-stage');
         const rect = container.getBoundingClientRect();
         liveCanvas.width = rect.width;
@@ -392,31 +411,23 @@
             if (type === 'grayscale') { let gray = 0.34*r + 0.5*g + 0.16*b; data[i]=data[i+1]=data[i+2]=gray; }
             else if (type === 'sepia') { data[i]=Math.min(255, r*0.393+g*0.769+b*0.189); data[i+1]=Math.min(255, r*0.349+g*0.686+b*0.168); data[i+2]=Math.min(255, r*0.272+g*0.131+b*0.131); }
             else if (type === 'vintage') { data[i]=Math.min(255, r*1.2); data[i+1]=Math.min(255, g*0.9); data[i+2]=Math.min(255, b*0.8); }
-            else if (type === 'invert') { data[i]=255-r; data[i+1]=255-g; data[i+2]=255-b; }
             else if (type === 'cool') { data[i]=Math.min(255, r*0.8); data[i+1]=Math.min(255, g*0.9); data[i+2]=Math.min(255, b*1.2); }
         }
     }
 
     function drawLiveFrame() {
         if (!video.videoWidth || !liveCanvas.width) return;
-        const ctx = liveCanvas.getContext('2d');
-        ctx.clearRect(0, 0, liveCanvas.width, liveCanvas.height);
-        ctx.save();
-        ctx.scale(-1, 1);
-        ctx.drawImage(video, -liveCanvas.width, 0, liveCanvas.width, liveCanvas.height);
-        ctx.restore();
+        const ctxLive = liveCanvas.getContext('2d');
+        ctxLive.clearRect(0, 0, liveCanvas.width, liveCanvas.height);
+        ctxLive.save();
+        ctxLive.scale(-1, 1);
+        ctxLive.drawImage(video, -liveCanvas.width, 0, liveCanvas.width, liveCanvas.height);
+        ctxLive.restore();
         if (activeFilter !== 'none') {
-            let imgData = ctx.getImageData(0, 0, liveCanvas.width, liveCanvas.height);
+            let imgData = ctxLive.getImageData(0, 0, liveCanvas.width, liveCanvas.height);
             applyFilterOnImageData(imgData, activeFilter);
-            ctx.putImageData(imgData, 0, 0);
+            ctxLive.putImageData(imgData, 0, 0);
         }
-        for (let s of activeStickers) {
-            ctx.font = `${Math.floor(liveCanvas.width * 0.1)}px "Segoe UI Emoji", "Apple Color Emoji"`;
-            ctx.fillStyle = "#fff";
-            ctx.shadowBlur = 5;
-            ctx.fillText(s.sticker, s.x * liveCanvas.width, s.y * liveCanvas.height);
-        }
-        ctx.shadowBlur = 0;
     }
 
     function startLiveRender() {
@@ -425,25 +436,19 @@
         loop();
     }
 
-    // Capture high-res still with stickers & filter
     function captureHighRes() {
         if (!video.videoWidth) return null;
         const w = video.videoWidth, h = video.videoHeight;
         const canvas = document.createElement('canvas');
         canvas.width = w; canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.scale(-1, 1);
-        ctx.drawImage(video, -w, 0, w, h);
-        ctx.setTransform(1,0,0,1,0,0);
+        const ctxCap = canvas.getContext('2d');
+        ctxCap.scale(-1, 1);
+        ctxCap.drawImage(video, -w, 0, w, h);
+        ctxCap.setTransform(1,0,0,1,0,0);
         if (activeFilter !== 'none') {
-            let imgData = ctx.getImageData(0, 0, w, h);
+            let imgData = ctxCap.getImageData(0, 0, w, h);
             applyFilterOnImageData(imgData, activeFilter);
-            ctx.putImageData(imgData, 0, 0);
-        }
-        for (let s of activeStickers) {
-            ctx.font = `${Math.floor(w * 0.09)}px "Segoe UI Emoji"`;
-            ctx.fillStyle = "white";
-            ctx.fillText(s.sticker, s.x * w, s.y * h);
+            ctxCap.putImageData(imgData, 0, 0);
         }
         return canvas.toDataURL('image/png');
     }
@@ -455,244 +460,290 @@
     }
 
     function renderGallery() {
-        if (!capturedPhotos.length) { galleryArea.innerHTML = '<div style="color:#aaa;">✨ No photos yet. Start sequence or snap.</div>'; return; }
-        galleryArea.innerHTML = '';
+        if (!capturedPhotos.length) { galleryContainer.innerHTML = '<div style="color:#aaa;">No photos. Capture some!</div>'; return; }
+        galleryContainer.innerHTML = '';
         capturedPhotos.forEach((photo, idx) => {
             const img = document.createElement('img');
             img.src = photo.dataUrl;
-            img.className = 'gallery-thumb';
-            img.title = "Click to add to college";
+            img.className = 'gallery-img';
+            img.title = "Add to college designer";
             img.addEventListener('click', () => {
-                if (currentCollegePhotos.length < 24) {
+                if (currentCollegePhotos.length < 20) {
                     currentCollegePhotos.push(photo.dataUrl);
-                    renderCollegePreview();
-                    showToast("Added to college designer");
-                } else showToast("Max 24 photos in college");
+                    renderCollegeCanvas();
+                    showToast("Added to college canvas");
+                } else showToast("Max 20 photos in college");
             });
-            galleryArea.appendChild(img);
+            galleryContainer.appendChild(img);
         });
     }
 
-    // Sequence capture with dynamic count
-    async function startSequence(totalShots) {
-        if (isCapturingSequence) { showToast("Already capturing sequence"); return; }
-        isCapturingSequence = true;
-        sequenceStatusDiv.innerText = `🎬 Sequence: 0/${totalShots}`;
-        for (let i = 1; i <= totalShots; i++) {
-            sequenceStatusDiv.innerText = `📸 Shot ${i}/${totalShots} ... smile!`;
-            await new Promise(r => setTimeout(r, 600));
+    // Sequence capture
+    async function startSequence(shots) {
+        seqStatus.innerText = `📸 Capturing...`;
+        for (let i = 1; i <= shots; i++) {
+            seqStatus.innerText = `Shot ${i}/${shots}`;
+            await new Promise(r => setTimeout(r, 550));
             const snap = captureHighRes();
             if (snap) addPhotoToGallery(snap);
-            await new Promise(r => setTimeout(r, 350));
+            await new Promise(r => setTimeout(r, 300));
         }
-        sequenceStatusDiv.innerText = `✅ Sequence complete! ${totalShots} photos captured.`;
-        isCapturingSequence = false;
-        showToast(`🎉 ${totalShots} photos captured! Now generate college.`);
+        seqStatus.innerText = `✅ ${shots} photos ready!`;
+        showToast(`Sequence done! ${shots} photos added.`);
     }
 
-    // ---------- STICKERS MANAGEMENT ----------
-    function renderStickerLibrary() {
-        stickerPackDiv.innerHTML = '';
-        stickerLibrary.forEach(sticker => {
-            const div = document.createElement('div');
-            div.className = 'sticker-icon';
-            div.innerText = sticker;
-            div.addEventListener('click', () => addSticker(sticker));
-            stickerPackDiv.appendChild(div);
-        });
-    }
-
-    function addSticker(emoji) {
-        activeStickers.push({ sticker: emoji, x: 0.2 + Math.random() * 0.6, y: 0.2 + Math.random() * 0.6 });
-        renderActiveStickersList();
-        showToast(`➕ Sticker: ${emoji}`);
-    }
-
-    function removeSticker(index) {
-        activeStickers.splice(index, 1);
-        renderActiveStickersList();
-    }
-
-    function renderActiveStickersList() {
-        if (!activeStickers.length) { activeStickersListDiv.innerHTML = '<div style="color:#aaa;">No active stickers. Click any above 👆</div>'; return; }
-        activeStickersListDiv.innerHTML = '';
-        activeStickers.forEach((s, idx) => {
-            const row = document.createElement('div');
-            row.style.background = '#1f253e'; row.style.borderRadius = '30px'; row.style.padding = '6px 12px'; row.style.marginBottom = '6px'; row.style.display = 'flex'; row.style.justifyContent = 'space-between';
-            row.innerHTML = `<span>${s.sticker} (${Math.round(s.x*100)}%, ${Math.round(s.y*100)}%)</span><button class="btn" style="padding:2px 12px;" data-idx="${idx}">❌</button>`;
-            activeStickersListDiv.appendChild(row);
-        });
-        document.querySelectorAll('[data-idx]').forEach(btn => {
-            btn.addEventListener('click', (e) => { const idx = parseInt(btn.getAttribute('data-idx')); removeSticker(idx); });
-        });
-    }
-
-    function clearAllStickers() { activeStickers = []; renderActiveStickersList(); showToast("All stickers cleared"); }
-
-    // ---------- COLLEGE GENERATION WITH DIFFERENT LAYOUTS ----------
-    function renderCollegePreview() {
-        if (!currentCollegePhotos.length) { collegePreviewArea.innerHTML = '<div style="color:#9a9fc0;">✨ Add photos from gallery or generate from sequence</div>'; return; }
-        collegePreviewArea.innerHTML = '';
-        currentCollegePhotos.forEach((url, idx) => {
-            const img = document.createElement('img');
-            img.src = url;
-            img.className = 'preview-img';
-            img.style.cursor = 'pointer';
-            img.addEventListener('click', () => {
-                currentCollegePhotos.splice(idx, 1);
-                renderCollegePreview();
-                showToast("Removed from college");
-            });
-            collegePreviewArea.appendChild(img);
-        });
-    }
-
-    function generateCollegeFromAllCaptured() {
-        if (capturedPhotos.length === 0) { showToast("No captured photos!"); return; }
-        currentCollegePhotos = capturedPhotos.map(p => p.dataUrl);
-        if (currentCollegePhotos.length > 24) currentCollegePhotos = currentCollegePhotos.slice(0,24);
-        renderCollegePreview();
-        showToast(`College loaded with ${currentCollegePhotos.length} photos. Choose layout and download.`);
-    }
-
-    async function downloadCollegeWithLayout() {
-        if (currentCollegePhotos.length === 0) { showToast("No photos in college"); return; }
-        const canvas = document.createElement('canvas');
-        let cols, rows, cellW, cellH;
-        const count = currentCollegePhotos.length;
-        if (currentLayout === 'grid') {
-            cols = Math.min(4, Math.ceil(Math.sqrt(count)));
-            rows = Math.ceil(count / cols);
-            cellW = 350; cellH = 350;
-            canvas.width = cols * cellW;
-            canvas.height = rows * cellH;
-        } else if (currentLayout === 'strip-h') {
-            cols = count; rows = 1;
-            cellW = 280; cellH = 280;
-            canvas.width = cols * cellW;
-            canvas.height = cellH + 60;
-        } else if (currentLayout === 'strip-v') {
-            cols = 1; rows = count;
-            cellW = 320; cellH = 320;
-            canvas.width = cellW + 40;
-            canvas.height = rows * cellH;
-        } else { // polaroid style
-            cols = Math.min(3, Math.ceil(Math.sqrt(count)));
-            rows = Math.ceil(count / cols);
-            cellW = 280; cellH = 320;
-            canvas.width = cols * cellW;
-            canvas.height = rows * cellH;
-        }
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = '#fef5e6'; ctx.fillRect(0,0,canvas.width,canvas.height);
-        let idx = 0;
-        for (let r = 0; r < rows; r++) {
-            for (let c = 0; c < cols; c++) {
-                if (idx >= count) break;
-                const img = new Image();
-                img.src = currentCollegePhotos[idx];
-                await new Promise(resolve => { img.onload = resolve; });
-                let x = c * cellW, y = r * cellH;
-                if (currentLayout === 'polaroid') {
-                    ctx.fillStyle = '#ffffff'; ctx.fillRect(x+5, y+5, cellW-10, cellH-50);
-                    ctx.drawImage(img, x+10, y+10, cellW-20, cellH-70);
-                    ctx.fillStyle = '#333'; ctx.font = 'bold 16px "Segoe UI"'; ctx.fillText("✨ BOOTH", x+20, y+cellH-20);
-                } else if (currentLayout === 'strip-h') {
-                    ctx.shadowBlur = 0;
-                    ctx.drawImage(img, x, y+20, cellW-10, cellH-40);
-                    ctx.fillStyle = "#ffd966"; ctx.font = "12px monospace"; ctx.fillText("📸", x+cellW/2-10, y+cellH-5);
-                } else {
-                    ctx.drawImage(img, x+8, y+8, cellW-16, cellH-16);
-                    if (currentLayout === 'strip-v') ctx.fillStyle = "#aaa"; ctx.fillRect(x, y+cellH-20, cellW, 4);
+    // ---------- College Canvas with Themes & Draggable Emojis ----------
+    function renderCollegeCanvas() {
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        // Draw background theme
+        if (currentTheme === 'fun') { ctx.fillStyle = '#FFEAA7'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#FF8C42'; for(let i=0;i<50;i++){ ctx.fillRect(Math.random()*canvasWidth, Math.random()*canvasHeight, 3,3); } }
+        else if (currentTheme === 'love') { ctx.fillStyle = '#FFB7B2'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#E63946'; ctx.font = "20px sans-serif"; ctx.fillText("❤️", 20,40); ctx.fillText("❤️", canvasWidth-40, canvasHeight-30); }
+        else if (currentTheme === 'funny') { ctx.fillStyle = '#F4E285'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#2D3436'; ctx.font = "bold 18px sans-serif"; ctx.fillText("😂 LOL 😂", canvasWidth/2-50, 40); }
+        else if (currentTheme === 'elegant') { ctx.fillStyle = '#2C3E50'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.strokeStyle = '#F1C40F'; ctx.lineWidth=2; for(let i=0;i<10;i++){ ctx.strokeRect(10,10,canvasWidth-20,canvasHeight-20); } }
+        else { ctx.fillStyle = '#D4C4A8'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#8B5A2B'; ctx.font = "italic 16px serif"; ctx.fillText("📻 RETRO VIBE", 20, 50); }
+        
+        // Draw photos in grid layout
+        if (currentCollegePhotos.length) {
+            const cols = Math.min(3, Math.ceil(Math.sqrt(currentCollegePhotos.length)));
+            const rows = Math.ceil(currentCollegePhotos.length / cols);
+            const cellW = canvasWidth / cols;
+            const cellH = canvasHeight / rows;
+            let idx = 0;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (idx >= currentCollegePhotos.length) break;
+                    const img = new Image();
+                    img.src = currentCollegePhotos[idx];
+                    ctx.drawImage(img, c*cellW+5, r*cellH+5, cellW-10, cellH-10);
+                    idx++;
                 }
-                idx++;
+            }
+        } else {
+            ctx.fillStyle = '#ffffff80'; ctx.font = "14px sans-serif"; ctx.fillText("📸 Load photos from gallery", canvasWidth/2-100, canvasHeight/2);
+        }
+        
+        // Draw all emojis
+        for (let e of collegeEmojis) {
+            ctx.font = `${Math.floor(canvasWidth * 0.08)}px "Segoe UI Emoji"`;
+            ctx.fillStyle = "#000000cc";
+            ctx.fillText(e.emoji, e.x-2, e.y-2);
+            ctx.fillStyle = "#ffffff";
+            ctx.fillText(e.emoji, e.x, e.y);
+        }
+    }
+    
+    // Add emoji to canvas (position from mouse/touch)
+    function addEmojiToCanvas(emoji, clientX, clientY) {
+        const rect = collegeCanvas.getBoundingClientRect();
+        const scaleX = canvasWidth / rect.width;
+        const scaleY = canvasHeight / rect.height;
+        let canvasX = (clientX - rect.left) * scaleX;
+        let canvasY = (clientY - rect.top) * scaleY;
+        canvasX = Math.min(Math.max(canvasX, 20), canvasWidth-20);
+        canvasY = Math.min(Math.max(canvasY, 30), canvasHeight-30);
+        collegeEmojis.push({ id: nextEmojiId++, emoji: emoji, x: canvasX, y: canvasY });
+        renderCollegeCanvas();
+        renderActiveEmojisList();
+        showToast(`Added ${emoji} (drag to reposition!)`);
+    }
+    
+    function renderActiveEmojisList() {
+        if (!collegeEmojis.length) { activeEmojisListDiv.innerHTML = '<span style="color:#aaa;">No emojis on college. Drag from library ➕</span>'; return; }
+        activeEmojisListDiv.innerHTML = '';
+        collegeEmojis.forEach(e => {
+            const badge = document.createElement('div');
+            badge.className = 'emoji-badge';
+            badge.innerHTML = `${e.emoji} <span style="cursor:pointer; font-size:1rem;" data-id="${e.id}">❌</span>`;
+            activeEmojisListDiv.appendChild(badge);
+        });
+        document.querySelectorAll('.emoji-badge span').forEach(span => {
+            span.addEventListener('click', (ev) => {
+                const id = parseInt(span.getAttribute('data-id'));
+                collegeEmojis = collegeEmojis.filter(e => e.id !== id);
+                renderCollegeCanvas();
+                renderActiveEmojisList();
+                showToast("Emoji removed");
+                ev.stopPropagation();
+            });
+        });
+    }
+    
+    // Drag & Drop support (mouse + touch)
+    function setupDragEvents() {
+        const getCoords = (e) => {
+            let clientX, clientY;
+            if (e.touches) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; e.preventDefault(); }
+            else { clientX = e.clientX; clientY = e.clientY; }
+            return { clientX, clientY };
+        };
+        collegeCanvas.addEventListener('mousedown', startDrag);
+        collegeCanvas.addEventListener('touchstart', startDrag, { passive: false });
+        window.addEventListener('mousemove', onDrag);
+        window.addEventListener('touchmove', onDrag, { passive: false });
+        window.addEventListener('mouseup', endDrag);
+        window.addEventListener('touchend', endDrag);
+        
+        function startDrag(e) {
+            const { clientX, clientY } = getCoords(e);
+            const rect = collegeCanvas.getBoundingClientRect();
+            const scaleX = canvasWidth / rect.width;
+            const scaleY = canvasHeight / rect.height;
+            const canvasX = (clientX - rect.left) * scaleX;
+            const canvasY = (clientY - rect.top) * scaleY;
+            // find emoji
+            for (let i = collegeEmojis.length-1; i >= 0; i--) {
+                const em = collegeEmojis[i];
+                const fontSize = canvasWidth * 0.08;
+                if (Math.abs(canvasX - em.x) < fontSize && Math.abs(canvasY - em.y) < fontSize) {
+                    dragTargetId = em.id;
+                    dragOffsetX = em.x - canvasX;
+                    dragOffsetY = em.y - canvasY;
+                    isDraggingEmoji = true;
+                    break;
+                }
             }
         }
+        function onDrag(e) {
+            if (!isDraggingEmoji || dragTargetId === null) return;
+            e.preventDefault();
+            const { clientX, clientY } = getCoords(e);
+            const rect = collegeCanvas.getBoundingClientRect();
+            const scaleX = canvasWidth / rect.width;
+            const scaleY = canvasHeight / rect.height;
+            let canvasX = (clientX - rect.left) * scaleX;
+            let canvasY = (clientY - rect.top) * scaleY;
+            canvasX = Math.min(Math.max(canvasX + dragOffsetX, 15), canvasWidth-15);
+            canvasY = Math.min(Math.max(canvasY + dragOffsetY, 25), canvasHeight-25);
+            const targetEmoji = collegeEmojis.find(e => e.id === dragTargetId);
+            if (targetEmoji) { targetEmoji.x = canvasX; targetEmoji.y = canvasY; renderCollegeCanvas(); }
+        }
+        function endDrag() { isDraggingEmoji = false; dragTargetId = null; }
+    }
+    
+    // Emoji Library
+    const defaultEmojis = ['🐶', '🐱', '😎', '❤️', '😂', '🤣', '😍', '🔥', '✨', '🌟', '🎉', '💋', '👑', '🌈', '🍕', '⚡', '🎈', '🤡', '👻', '🦄'];
+    function buildEmojiLibrary() {
+        emojiLibraryDiv.innerHTML = '';
+        defaultEmojis.forEach(emo => {
+            const btn = document.createElement('div');
+            btn.className = 'emoji-btn';
+            btn.innerText = emo;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // add at center if no drag start
+                addEmojiToCanvas(emo, collegeCanvas.getBoundingClientRect().left + canvasWidth/2, collegeCanvas.getBoundingClientRect().top + canvasHeight/2);
+            });
+            emojiLibraryDiv.appendChild(btn);
+        });
+    }
+    
+    function clearAllEmojis() { collegeEmojis = []; renderCollegeCanvas(); renderActiveEmojisList(); showToast("All emojis cleared"); }
+    
+    // Generate college from gallery photos
+    function loadGalleryToCollege() {
+        if (!capturedPhotos.length) { showToast("No photos in gallery! Capture first."); return; }
+        currentCollegePhotos = capturedPhotos.map(p => p.dataUrl).slice(0, 20);
+        renderCollegeCanvas();
+        showToast(`${currentCollegePhotos.length} photos loaded to college`);
+    }
+    
+    function previewFullscreen() {
+        const previewCanvas = document.createElement('canvas');
+        previewCanvas.width = canvasWidth;
+        previewCanvas.height = canvasHeight;
+        const pCtx = previewCanvas.getContext('2d');
+        pCtx.drawImage(collegeCanvas, 0, 0);
+        const win = window.open();
+        win.document.write(`<img src="${previewCanvas.toDataURL()}" style="width:100%; margin:0; background:#000;">`);
+        win.document.title = "College Preview";
+        showToast("Preview opened in new tab");
+    }
+    
+    function downloadCollege() {
         const link = document.createElement('a');
-        link.download = `college_${currentLayout}_${Date.now()}.png`;
-        link.href = canvas.toDataURL();
+        link.download = `college_${currentTheme}_${Date.now()}.png`;
+        link.href = collegeCanvas.toDataURL();
         link.click();
         showToast("College downloaded!");
     }
-
-    function saveCollegePreset() {
-        if (currentCollegePhotos.length === 0) { showToast("No college to save"); return; }
-        const presets = JSON.parse(localStorage.getItem('college_presets') || '[]');
-        presets.push({ id: Date.now(), photos: currentCollegePhotos, layout: currentLayout, date: new Date().toLocaleString() });
-        localStorage.setItem('college_presets', JSON.stringify(presets));
-        renderSavedPresets();
-        showToast("Preset saved!");
+    
+    function resetCollege() {
+        currentCollegePhotos = [];
+        collegeEmojis = [];
+        renderCollegeCanvas();
+        renderActiveEmojisList();
+        showToast("College reset");
     }
-
-    function renderSavedPresets() {
-        const presets = JSON.parse(localStorage.getItem('college_presets') || '[]');
-        if (!presets.length) { savedPresetsList.innerHTML = '<div style="color:#aaa;">No saved college presets</div>'; return; }
-        savedPresetsList.innerHTML = '';
-        presets.slice().reverse().forEach(p => {
-            const div = document.createElement('div');
-            div.style.background = '#171c30'; div.style.borderRadius = '20px'; div.style.padding = '8px'; div.style.marginBottom = '8px';
-            div.innerHTML = `<div style="display:flex; gap:5px; overflow-x:auto;">${p.photos.slice(0,3).map(ph => `<img src="${ph}" style="width:40px;height:40px;border-radius:10px;">`).join('')} ...</div>
-            <div style="display:flex; gap:6px; margin-top:6px;"><button class="btn load-preset" data-id="${p.id}" style="padding:4px 12px;">📂 Load</button><button class="btn delete-preset" data-id="${p.id}" style="padding:4px 12px;">❌</button></div>`;
-            savedPresetsList.appendChild(div);
-        });
-        document.querySelectorAll('.load-preset').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseInt(btn.getAttribute('data-id'));
-                const presetsArr = JSON.parse(localStorage.getItem('college_presets') || '[]');
-                const preset = presetsArr.find(p => p.id === id);
-                if (preset) { currentCollegePhotos = preset.photos; currentLayout = preset.layout; renderCollegePreview(); showToast(`Loaded preset (${preset.photos.length} photos)`); }
+    
+    function savePreviewToHistory() {
+        const dataUrl = collegeCanvas.toDataURL();
+        const previews = JSON.parse(localStorage.getItem('college_previews') || '[]');
+        previews.unshift({ id: Date.now(), dataUrl, theme: currentTheme, date: new Date().toLocaleTimeString() });
+        if (previews.length > 8) previews.pop();
+        localStorage.setItem('college_previews', JSON.stringify(previews));
+        renderSavedPreviews();
+        showToast("Saved to history");
+    }
+    
+    function renderSavedPreviews() {
+        const previews = JSON.parse(localStorage.getItem('college_previews') || '[]');
+        if (!previews.length) { savedPreviewsDiv.innerHTML = '<div style="color:#aaa;">No saved colleges</div>'; return; }
+        savedPreviewsDiv.innerHTML = '';
+        previews.forEach(p => {
+            const img = document.createElement('img');
+            img.src = p.dataUrl;
+            img.style.width = '70px'; img.style.height = '70px'; img.style.objectFit = 'cover'; img.style.borderRadius = '12px'; img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                // restore emojis? just show preview
+                const restoreCanvas = new Image();
+                restoreCanvas.src = p.dataUrl;
+                restoreCanvas.onload = () => {
+                    ctx.drawImage(restoreCanvas, 0, 0, canvasWidth, canvasHeight);
+                    showToast("Loaded preview (static). Rebuild if needed.");
+                };
             });
-        });
-        document.querySelectorAll('.delete-preset').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseInt(btn.getAttribute('data-id'));
-                let presetsArr = JSON.parse(localStorage.getItem('college_presets') || '[]');
-                presetsArr = presetsArr.filter(p => p.id !== id);
-                localStorage.setItem('college_presets', JSON.stringify(presetsArr));
-                renderSavedPresets();
-                showToast("Preset deleted");
-            });
+            savedPreviewsDiv.appendChild(img);
         });
     }
-
-    function clearCollege() { currentCollegePhotos = []; renderCollegePreview(); showToast("College cleared"); }
-
-    // ---------- EVENT LISTENERS ----------
-    shotCountSlider.addEventListener('input', () => { shotCountValue.innerText = shotCountSlider.value; });
-    startSequenceBtn.addEventListener('click', () => { const shots = parseInt(shotCountSlider.value); startSequence(shots); });
-    forceCaptureBtn.addEventListener('click', () => { const snap = captureHighRes(); if(snap) addPhotoToGallery(snap); });
+    
+    // Event Listeners
+    captureBtn.addEventListener('click', () => { const snap = captureHighRes(); if(snap) addPhotoToGallery(snap); });
+    sequenceBtn.addEventListener('click', () => startSequence(parseInt(shotCountInput.value) || 4));
     clearGalleryBtn.addEventListener('click', () => { capturedPhotos = []; renderGallery(); showToast("Gallery cleared"); });
-
-    // filters
+    generateCollegeBtn.addEventListener('click', loadGalleryToCollege);
+    previewCollegeBtn.addEventListener('click', previewFullscreen);
+    downloadCollegeBtn.addEventListener('click', downloadCollege);
+    resetCollegeBtn.addEventListener('click', resetCollege);
+    clearAllEmojisBtn.addEventListener('click', clearAllEmojis);
+    addCustomEmojiBtn.addEventListener('click', () => { let val = customEmojiInput.value.trim(); if(val) addEmojiToCanvas(val.slice(0,2), collegeCanvas.getBoundingClientRect().left + canvasWidth/2, collegeCanvas.getBoundingClientRect().top + canvasHeight/2); customEmojiInput.value = ''; });
+    
+    document.querySelectorAll('.theme-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.theme-chip').forEach(c=>c.classList.remove('active'));
+            chip.classList.add('active');
+            currentTheme = chip.getAttribute('data-theme');
+            renderCollegeCanvas();
+        });
+    });
     document.querySelectorAll('#filterGroup .btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            document.querySelectorAll('#filterGroup .btn').forEach(b => b.classList.remove('active-layout'));
-            btn.classList.add('active-layout');
+            document.querySelectorAll('#filterGroup .btn').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
             activeFilter = btn.getAttribute('data-filter');
-            showToast(`Filter: ${btn.innerText}`);
         });
     });
-
-    addCustomStickerBtn.addEventListener('click', () => { let val = customStickerInput.value.trim(); if(val) addSticker(val.slice(0,2)); customStickerInput.value = ''; });
-    clearAllStickersBtn.addEventListener('click', clearAllStickers);
-    generateCollegeBtn.addEventListener('click', generateCollegeFromAllCaptured);
-    downloadCollegeBtn.addEventListener('click', downloadCollegeWithLayout);
-    saveCollegePresetBtn.addEventListener('click', saveCollegePreset);
-    clearCollegeBtn.addEventListener('click', clearCollege);
-    layoutSelectorDiv.querySelectorAll('.layout-badge').forEach(lay => {
-        lay.addEventListener('click', () => {
-            layoutSelectorDiv.querySelectorAll('.layout-badge').forEach(l => l.classList.remove('active-layout'));
-            lay.classList.add('active-layout');
-            currentLayout = lay.getAttribute('data-layout');
-            showToast(`Layout: ${lay.innerText}`);
-        });
-    });
-
-    renderStickerLibrary();
-    renderActiveStickersList();
-    initCamera();
-    window.addEventListener('resize', () => resizeCanvas());
-    renderSavedPresets();
+    
+    function init() {
+        initCamera();
+        buildEmojiLibrary();
+        setupDragEvents();
+        resizeCanvasDimensions();
+        renderCollegeCanvas();
+        renderActiveEmojisList();
+        renderSavedPreviews();
+        window.addEventListener('resize', () => { resizeLiveCanvas(); resizeCanvasDimensions(); });
+    }
+    init();
 </script>
 </body>
 </html>
