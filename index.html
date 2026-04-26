@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>📸 PRO STUDIO | Sequence Booth · Smart Colleges · Sticker Studio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0f1e, #03060f);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        /* Glassmorphic container */
+        .app-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .hero h1 {
+            font-size: 2.6rem;
+            background: linear-gradient(135deg, #FFE6B0, #FFB347, #FF8A5C);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.5px;
+        }
+        .hero p {
+            color: #a0a8c0;
+            margin-top: 6px;
+        }
+
+        /* Dashboard Grid */
+        .dashboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        /* Panels */
+        .panel {
+            background: rgba(18, 24, 40, 0.75);
+            backdrop-filter: blur(16px);
+            border-radius: 44px;
+            border: 1px solid rgba(255, 200, 120, 0.25);
+            padding: 24px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
+            transition: all 0.2s;
+        }
+
+        .camera-panel {
+            flex: 2.2;
+            min-width: 320px;
+        }
+
+        .control-panel {
+            flex: 1.5;
+            min-width: 280px;
+        }
+
+        .college-panel {
+            flex: 1.8;
+            min-width: 300px;
+        }
+
+        /* Video Box */
+        .video-stage {
+            position: relative;
+            background: #000;
+            border-radius: 36px;
+            overflow: hidden;
+            aspect-ratio: 4 / 3;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.6);
+            border: 2px solid rgba(255, 180, 70, 0.5);
+        }
+        video, #liveCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        video { transform: scaleX(-1); }
+        #liveCanvas { pointer-events: none; }
+
+        /* Buttons & UI */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 18px;
+        }
+        .btn {
+            background: #1f253e;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            color: #f0f3ff;
+            cursor: pointer;
+            transition: 0.15s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #ff8c42, #ff5e1a);
+            color: white;
+            box-shadow: 0 8px 18px #ff5e1a40;
+        }
+        .btn-primary:hover { transform: scale(0.96); background: #ff6e2c; }
+        .btn-success { background: #2c9e5a; }
+        .btn-warning { background: #e67e22; }
+        .btn-danger { background: #c0392b; }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0 5px;
+            color: #ffdd99;
+        }
+        input[type="range"], input[type="number"] {
+            background: #1e253e;
+            border: 1px solid #ffb347;
+            border-radius: 40px;
+            padding: 8px 12px;
+            color: white;
+            width: 100%;
+        }
+
+        /* Stickers gallery */
+        .sticker-pack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            max-height: 140px;
+            overflow-y: auto;
+            padding: 5px;
+        }
+        .sticker-icon {
+            background: #2a2f4e;
+            font-size: 2rem;
+            padding: 8px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: 0.07s linear;
+            width: 58px;
+            text-align: center;
+            border: 1px solid #ffaa55;
+        }
+        .sticker-icon:active { transform: scale(0.9); }
+
+        /* College Layout Grids */
+        .layout-selector {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        .layout-badge {
+            background: #232844;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: 1px solid #6a6f96;
+        }
+        .layout-badge.active-layout {
+            background: #ff8c42;
+            color: #1e1a10;
+            border-color: #ffcf8a;
+        }
+        .strip-preview {
+            background: #0b0e1a;
+            border-radius: 24px;
+            padding: 12px;
+            min-height: 140px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 12px 0;
+        }
+        .preview-img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid #ffaa55;
+        }
+        .gallery-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            object-fit: cover;
+            cursor: pointer;
+            border: 2px solid #ffb347;
+            transition: 0.1s;
+        }
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 15px 0 8px 0;
+            color: #ffdead;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* countdown animation */
+        .countdown-badge {
+            background: #000000aa;
+            backdrop-filter: blur(12px);
+            padding: 12px 24px;
+            border-radius: 100px;
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 950px) {
+            body { padding: 12px; }
+            .dashboard { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="app-container">
+    <div class="hero">
+        <h1><span>🎭</span> SEQUENCE PHOTOBOOTH · SMART COLLEGES <span>✨</span></h1>
+        <p>set number of shots | auto college layout with multiple designs | huge sticker studio</p>
+    </div>
+
+    <div class="dashboard">
+        <!-- LEFT: CAMERA + SEQUENCE CONFIG -->
+        <div class="panel camera-panel">
+            <div class="video-stage">
+                <video id="video" autoplay playsinline muted></video>
+                <canvas id="liveCanvas"></canvas>
+            </div>
+            <div class="slider-label">
+                <span>📸 NUMBER OF IMAGES TO CLICK:</span>
+                <span id="shotCountValue">4</span>
+            </div>
+            <input type="range" id="shotCountSlider" min="1" max="8" value="4" step="1">
+            <div class="btn-group">
+                <button id="startSequenceBtn" class="btn btn-primary">🎬 START SEQUENCE (auto capture)</button>
+                <button id="forceCaptureBtn" class="btn">⚡ Single Snap</button>
+                <button id="clearGalleryBtn" class="btn btn-danger">🗑️ Clear All</button>
+            </div>
+            <div id="sequenceStatus" class="countdown-badge" style="font-size: 1.2rem; padding: 8px;">Ready</div>
+            <div class="section-title"><span>🖼️</span> CAPTURED PHOTOS (click to add to college)</div>
+            <div id="galleryArea" style="display: flex; flex-wrap: wrap; gap: 10px; max-height: 140px; overflow-y: auto;"></div>
+        </div>
+
+        <!-- MIDDLE: STICKERS + FILTERS + SEQUENCE FEEDBACK -->
+        <div class="panel control-panel">
+            <div class="section-title"><span>🎨</span> INSTANT FILTERS</div>
+            <div class="btn-group" id="filterGroup">
+                <div data-filter="none" class="btn active-layout" style="background:#ff8c42;">Normal</div>
+                <div data-filter="grayscale" class="btn">Grayscale</div>
+                <div data-filter="sepia" class="btn">Sepia</div>
+                <div data-filter="vintage" class="btn">Vintage</div>
+                <div data-filter="invert" class="btn">Invert</div>
+                <div data-filter="cool" class="btn">❄️ Cool</div>
+            </div>
+
+            <div class="section-title"><span>😜</span> PREMIUM STICKER PACK</div>
+            <div class="sticker-pack" id="stickerPack">
+                <!-- dynamic stickers from categories -->
+            </div>
+            <div style="display: flex; gap: 10px; margin: 8px 0;">
+                <input type="text" id="customStickerInput" placeholder="➕ Custom emoji/text" maxlength="4" style="flex:1; background:#1e253e; border-radius:40px; padding:8px; border:1px solid #ffbb77;">
+                <button id="addCustomStickerBtn" class="btn">Add</button>
+                <button id="clearAllStickersBtn" class="btn btn-danger">Clear Stickers</button>
+            </div>
+            <div id="activeStickersList" style="background:#0b0e1c; border-radius: 32px; padding: 10px; margin-top: 12px; max-height: 120px; overflow-y: auto; font-size:0.85rem;"></div>
+        </div>
+
+        <!-- RIGHT: COLLEGE BUILDER & LAYOUTS -->
+        <div class="panel college-panel">
+            <div class="section-title"><span>🎓</span> COLLEGE DESIGNER</div>
+            <div class="layout-selector" id="layoutSelector">
+                <div data-layout="grid" class="layout-badge active-layout">📐 Grid (auto-fit)</div>
+                <div data-layout="strip-h" class="layout-badge">📸 Horizontal Strip</div>
+                <div data-layout="strip-v" class="layout-badge">📸 Vertical Strip</div>
+                <div data-layout="polaroid" class="layout-badge">🖼️ Polaroid Style</div>
+            </div>
+            <div id="collegePreviewArea" class="strip-preview">
+                <div style="color:#9a9fc0;">✨ College preview will appear here after capture sequence or adding photos</div>
+            </div>
+            <div class="btn-group">
+                <button id="generateCollegeFromGalleryBtn" class="btn btn-success">✨ Generate College (All captured)</button>
+                <button id="downloadCollegeBtn" class="btn btn-primary">⬇️ Download College</button>
+                <button id="saveCollegePresetBtn" class="btn">💾 Save Preset</button>
+                <button id="clearCollegeBtn" class="btn btn-danger">Clear College</button>
+            </div>
+            <div class="section-title"><span>📚</span> SAVED COLLEGE PRESETS</div>
+            <div id="savedPresetsList" style="max-height: 160px; overflow-y: auto;"></div>
+        </div>
+    </div>
+</div>
+<div id="toastMsg" style="position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#ffdd99cc; backdrop-filter:blur(12px); padding:10px 22px; border-radius:40px; font-weight:bold; opacity:0; transition:0.2s; z-index:9999;"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script>
+    // ---------- DOM Elements ----------
+    const video = document.getElementById('video');
+    const liveCanvas = document.getElementById('liveCanvas');
+    const shotCountSlider = document.getElementById('shotCountSlider');
+    const shotCountValue = document.getElementById('shotCountValue');
+    const startSequenceBtn = document.getElementById('startSequenceBtn');
+    const forceCaptureBtn = document.getElementById('forceCaptureBtn');
+    const clearGalleryBtn = document.getElementById('clearGalleryBtn');
+    const galleryArea = document.getElementById('galleryArea');
+    const sequenceStatusDiv = document.getElementById('sequenceStatus');
+    const filterGroup = document.getElementById('filterGroup');
+    const stickerPackDiv = document.getElementById('stickerPack');
+    const customStickerInput = document.getElementById('customStickerInput');
+    const addCustomStickerBtn = document.getElementById('addCustomStickerBtn');
+    const clearAllStickersBtn = document.getElementById('clearAllStickersBtn');
+    const activeStickersListDiv = document.getElementById('activeStickersList');
+    const layoutSelectorDiv = document.getElementById('layoutSelector');
+    const collegePreviewArea = document.getElementById('collegePreviewArea');
+    const generateCollegeBtn = document.getElementById('generateCollegeFromGalleryBtn');
+    const downloadCollegeBtn = document.getElementById('downloadCollegeBtn');
+    const saveCollegePresetBtn = document.getElementById('saveCollegePresetBtn');
+    const clearCollegeBtn = document.getElementById('clearCollegeBtn');
+    const savedPresetsList = document.getElementById('savedPresetsList');
+    const toastEl = document.getElementById('toastMsg');
+
+    // ---------- State ----------
+    let capturedPhotos = []; // array of { dataUrl, timestamp }
+    let activeFilter = 'none';
+    let activeStickers = []; // { sticker, x, y }
+    let currentCollegePhotos = []; // dataUrls for college
+    let currentLayout = 'grid';    // grid, strip-h, strip-v, polaroid
+    let animationId = null;
+    let isCapturingSequence = false;
+
+    // sticker library (different types)
+    const stickerLibrary = ['🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '😎', '🥳', '😍', '🔥', '✨', '🌟', '⭐', '❤️', '💋', '👑', '🎩', '🌈', '🍕', '🍔', '⚡', '🎈', '🎉', '💎', '🤖', '👻', '🎃', '💀', '🦄'];
+
+    // Helper: Toast
+    function showToast(msg, duration = 1800) {
+        toastEl.innerText = msg;
+        toastEl.style.opacity = '1';
+        setTimeout(() => toastEl.style.opacity = '0', duration);
+    }
+
+    // ---------- Camera & Filters + Stickers (Live Preview) ----------
+    async function initCamera() {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user", width: 1280, height: 720 } });
+            video.srcObject = stream;
+            await video.play();
+            resizeCanvas();
+            startLiveRender();
+        } catch (err) { alert("Camera needed for magic!"); }
+    }
+
+    function resizeCanvas() {
+        const container = document.querySelector('.video-stage');
+        const rect = container.getBoundingClientRect();
+        liveCanvas.width = rect.width;
+        liveCanvas.height = rect.height;
+    }
+
+    function applyFilterOnImageData(imageData, type) {
+        const data = imageData.data;
+        for (let i = 0; i < data.length; i += 4) {
+            let r = data[i], g = data[i+1], b = data[i+2];
+            if (type === 'grayscale') { let gray = 0.34*r + 0.5*g + 0.16*b; data[i]=data[i+1]=data[i+2]=gray; }
+            else if (type === 'sepia') { data[i]=Math.min(255, r*0.393+g*0.769+b*0.189); data[i+1]=Math.min(255, r*0.349+g*0.686+b*0.168); data[i+2]=Math.min(255, r*0.272+g*0.131+b*0.131); }
+            else if (type === 'vintage') { data[i]=Math.min(255, r*1.2); data[i+1]=Math.min(255, g*0.9); data[i+2]=Math.min(255, b*0.8); }
+            else if (type === 'invert') { data[i]=255-r; data[i+1]=255-g; data[i+2]=255-b; }
+            else if (type === 'cool') { data[i]=Math.min(255, r*0.8); data[i+1]=Math.min(255, g*0.9); data[i+2]=Math.min(255, b*1.2); }
+        }
+    }
+
+    function drawLiveFrame() {
+        if (!video.videoWidth || !liveCanvas.width) return;
+        const ctx = liveCanvas.getContext('2d');
+        ctx.clearRect(0, 0, liveCanvas.width, liveCanvas.height);
+        ctx.save();
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, -liveCanvas.width, 0, liveCanvas.width, liveCanvas.height);
+        ctx.restore();
+        if (activeFilter !== 'none') {
+            let imgData = ctx.getImageData(0, 0, liveCanvas.width, liveCanvas.height);
+            applyFilterOnImageData(imgData, activeFilter);
+            ctx.putImageData(imgData, 0, 0);
+        }
+        for (let s of activeStickers) {
+            ctx.font = `${Math.floor(liveCanvas.width * 0.1)}px "Segoe UI Emoji", "Apple Color Emoji"`;
+            ctx.fillStyle = "#fff";
+            ctx.shadowBlur = 5;
+            ctx.fillText(s.sticker, s.x * liveCanvas.width, s.y * liveCanvas.height);
+        }
+        ctx.shadowBlur = 0;
+    }
+
+    function startLiveRender() {
+        if (animationId) cancelAnimationFrame(animationId);
+        function loop() { drawLiveFrame(); animationId = requestAnimationFrame(loop); }
+        loop();
+    }
+
+    // Capture high-res still with stickers & filter
+    function captureHighRes() {
+        if (!video.videoWidth) return null;
+        const w = video.videoWidth, h = video.videoHeight;
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.scale(-1, 1);
+        ctx.drawImage(video, -w, 0, w, h);
+        ctx.setTransform(1,0,0,1,0,0);
+        if (activeFilter !== 'none') {
+            let imgData = ctx.getImageData(0, 0, w, h);
+            applyFilterOnImageData(imgData, activeFilter);
+            ctx.putImageData(imgData, 0, 0);
+        }
+        for (let s of activeStickers) {
+            ctx.font = `${Math.floor(w * 0.09)}px "Segoe UI Emoji"`;
+            ctx.fillStyle = "white";
+            ctx.fillText(s.sticker, s.x * w, s.y * h);
+        }
+        return canvas.toDataURL('image/png');
+    }
+
+    function addPhotoToGallery(dataUrl) {
+        capturedPhotos.push({ dataUrl, timestamp: Date.now() });
+        renderGallery();
+        showToast("📸 Photo captured!");
+    }
+
+    function renderGallery() {
+        if (!capturedPhotos.length) { galleryArea.innerHTML = '<div style="color:#aaa;">✨ No photos yet. Start sequence or snap.</div>'; return; }
+        galleryArea.innerHTML = '';
+        capturedPhotos.forEach((photo, idx) => {
+            const img = document.createElement('img');
+            img.src = photo.dataUrl;
+            img.className = 'gallery-thumb';
+            img.title = "Click to add to college";
+            img.addEventListener('click', () => {
+                if (currentCollegePhotos.length < 24) {
+                    currentCollegePhotos.push(photo.dataUrl);
+                    renderCollegePreview();
+                    showToast("Added to college designer");
+                } else showToast("Max 24 photos in college");
+            });
+            galleryArea.appendChild(img);
+        });
+    }
+
+    // Sequence capture with dynamic count
+    async function startSequence(totalShots) {
+        if (isCapturingSequence) { showToast("Already capturing sequence"); return; }
+        isCapturingSequence = true;
+        sequenceStatusDiv.innerText = `🎬 Sequence: 0/${totalShots}`;
+        for (let i = 1; i <= totalShots; i++) {
+            sequenceStatusDiv.innerText = `📸 Shot ${i}/${totalShots} ... smile!`;
+            await new Promise(r => setTimeout(r, 600));
+            const snap = captureHighRes();
+            if (snap) addPhotoToGallery(snap);
+            await new Promise(r => setTimeout(r, 350));
+        }
+        sequenceStatusDiv.innerText = `✅ Sequence complete! ${totalShots} photos captured.`;
+        isCapturingSequence = false;
+        showToast(`🎉 ${totalShots} photos captured! Now generate college.`);
+    }
+
+    // ---------- STICKERS MANAGEMENT ----------
+    function renderStickerLibrary() {
+        stickerPackDiv.innerHTML = '';
+        stickerLibrary.forEach(sticker => {
+            const div = document.createElement('div');
+            div.className = 'sticker-icon';
+            div.innerText = sticker;
+            div.addEventListener('click', () => addSticker(sticker));
+            stickerPackDiv.appendChild(div);
+        });
+    }
+
+    function addSticker(emoji) {
+        activeStickers.push({ sticker: emoji, x: 0.2 + Math.random() * 0.6, y: 0.2 + Math.random() * 0.6 });
+        renderActiveStickersList();
+        showToast(`➕ Sticker: ${emoji}`);
+    }
+
+    function removeSticker(index) {
+        activeStickers.splice(index, 1);
+        renderActiveStickersList();
+    }
+
+    function renderActiveStickersList() {
+        if (!activeStickers.length) { activeStickersListDiv.innerHTML = '<div style="color:#aaa;">No active stickers. Click any above 👆</div>'; return; }
+        activeStickersListDiv.innerHTML = '';
+        activeStickers.forEach((s, idx) => {
+            const row = document.createElement('div');
+            row.style.background = '#1f253e'; row.style.borderRadius = '30px'; row.style.padding = '6px 12px'; row.style.marginBottom = '6px'; row.style.display = 'flex'; row.style.justifyContent = 'space-between';
+            row.innerHTML = `<span>${s.sticker} (${Math.round(s.x*100)}%, ${Math.round(s.y*100)}%)</span><button class="btn" style="padding:2px 12px;" data-idx="${idx}">❌</button>`;
+            activeStickersListDiv.appendChild(row);
+        });
+        document.querySelectorAll('[data-idx]').forEach(btn => {
+            btn.addEventListener('click', (e) => { const idx = parseInt(btn.getAttribute('data-idx')); removeSticker(idx); });
+        });
+    }
+
+    function clearAllStickers() { activeStickers = []; renderActiveStickersList(); showToast("All stickers cleared"); }
+
+    // ---------- COLLEGE GENERATION WITH DIFFERENT LAYOUTS ----------
+    function renderCollegePreview() {
+        if (!currentCollegePhotos.length) { collegePreviewArea.innerHTML = '<div style="color:#9a9fc0;">✨ Add photos from gallery or generate from sequence</div>'; return; }
+        collegePreviewArea.innerHTML = '';
+        currentCollegePhotos.forEach((url, idx) => {
+            const img = document.createElement('img');
+            img.src = url;
+            img.className = 'preview-img';
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', () => {
+                currentCollegePhotos.splice(idx, 1);
+                renderCollegePreview();
+                showToast("Removed from college");
+            });
+            collegePreviewArea.appendChild(img);
+        });
+    }
+
+    function generateCollegeFromAllCaptured() {
+        if (capturedPhotos.length === 0) { showToast("No captured photos!"); return; }
+        currentCollegePhotos = capturedPhotos.map(p => p.dataUrl);
+        if (currentCollegePhotos.length > 24) currentCollegePhotos = currentCollegePhotos.slice(0,24);
+        renderCollegePreview();
+        showToast(`College loaded with ${currentCollegePhotos.length} photos. Choose layout and download.`);
+    }
+
+    async function downloadCollegeWithLayout() {
+        if (currentCollegePhotos.length === 0) { showToast("No photos in college"); return; }
+        const canvas = document.createElement('canvas');
+        let cols, rows, cellW, cellH;
+        const count = currentCollegePhotos.length;
+        if (currentLayout === 'grid') {
+            cols = Math.min(4, Math.ceil(Math.sqrt(count)));
+            rows = Math.ceil(count / cols);
+            cellW = 350; cellH = 350;
+            canvas.width = cols * cellW;
+            canvas.height = rows * cellH;
+        } else if (currentLayout === 'strip-h') {
+            cols = count; rows = 1;
+            cellW = 280; cellH = 280;
+            canvas.width = cols * cellW;
+            canvas.height = cellH + 60;
+        } else if (currentLayout === 'strip-v') {
+            cols = 1; rows = count;
+            cellW = 320; cellH = 320;
+            canvas.width = cellW + 40;
+            canvas.height = rows * cellH;
+        } else { // polaroid style
+            cols = Math.min(3, Math.ceil(Math.sqrt(count)));
+            rows = Math.ceil(count / cols);
+            cellW = 280; cellH = 320;
+            canvas.width = cols * cellW;
+            canvas.height = rows * cellH;
+        }
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#fef5e6'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        let idx = 0;
+        for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+                if (idx >= count) break;
+                const img = new Image();
+                img.src = currentCollegePhotos[idx];
+                await new Promise(resolve => { img.onload = resolve; });
+                let x = c * cellW, y = r * cellH;
+                if (currentLayout === 'polaroid') {
+                    ctx.fillStyle = '#ffffff'; ctx.fillRect(x+5, y+5, cellW-10, cellH-50);
+                    ctx.drawImage(img, x+10, y+10, cellW-20, cellH-70);
+                    ctx.fillStyle = '#333'; ctx.font = 'bold 16px "Segoe UI"'; ctx.fillText("✨ BOOTH", x+20, y+cellH-20);
+                } else if (currentLayout === 'strip-h') {
+                    ctx.shadowBlur = 0;
+                    ctx.drawImage(img, x, y+20, cellW-10, cellH-40);
+                    ctx.fillStyle = "#ffd966"; ctx.font = "12px monospace"; ctx.fillText("📸", x+cellW/2-10, y+cellH-5);
+                } else {
+                    ctx.drawImage(img, x+8, y+8, cellW-16, cellH-16);
+                    if (currentLayout === 'strip-v') ctx.fillStyle = "#aaa"; ctx.fillRect(x, y+cellH-20, cellW, 4);
+                }
+                idx++;
+            }
+        }
+        const link = document.createElement('a');
+        link.download = `college_${currentLayout}_${Date.now()}.png`;
+        link.href = canvas.toDataURL();
+        link.click();
+        showToast("College downloaded!");
+    }
+
+    function saveCollegePreset() {
+        if (currentCollegePhotos.length === 0) { showToast("No college to save"); return; }
+        const presets = JSON.parse(localStorage.getItem('college_presets') || '[]');
+        presets.push({ id: Date.now(), photos: currentCollegePhotos, layout: currentLayout, date: new Date().toLocaleString() });
+        localStorage.setItem('college_presets', JSON.stringify(presets));
+        renderSavedPresets();
+        showToast("Preset saved!");
+    }
+
+    function renderSavedPresets() {
+        const presets = JSON.parse(localStorage.getItem('college_presets') || '[]');
+        if (!presets.length) { savedPresetsList.innerHTML = '<div style="color:#aaa;">No saved college presets</div>'; return; }
+        savedPresetsList.innerHTML = '';
+        presets.slice().reverse().forEach(p => {
+            const div = document.createElement('div');
+            div.style.background = '#171c30'; div.style.borderRadius = '20px'; div.style.padding = '8px'; div.style.marginBottom = '8px';
+            div.innerHTML = `<div style="display:flex; gap:5px; overflow-x:auto;">${p.photos.slice(0,3).map(ph => `<img src="${ph}" style="width:40px;height:40px;border-radius:10px;">`).join('')} ...</div>
+            <div style="display:flex; gap:6px; margin-top:6px;"><button class="btn load-preset" data-id="${p.id}" style="padding:4px 12px;">📂 Load</button><button class="btn delete-preset" data-id="${p.id}" style="padding:4px 12px;">❌</button></div>`;
+            savedPresetsList.appendChild(div);
+        });
+        document.querySelectorAll('.load-preset').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                const presetsArr = JSON.parse(localStorage.getItem('college_presets') || '[]');
+                const preset = presetsArr.find(p => p.id === id);
+                if (preset) { currentCollegePhotos = preset.photos; currentLayout = preset.layout; renderCollegePreview(); showToast(`Loaded preset (${preset.photos.length} photos)`); }
+            });
+        });
+        document.querySelectorAll('.delete-preset').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.getAttribute('data-id'));
+                let presetsArr = JSON.parse(localStorage.getItem('college_presets') || '[]');
+                presetsArr = presetsArr.filter(p => p.id !== id);
+                localStorage.setItem('college_presets', JSON.stringify(presetsArr));
+                renderSavedPresets();
+                showToast("Preset deleted");
+            });
+        });
+    }
+
+    function clearCollege() { currentCollegePhotos = []; renderCollegePreview(); showToast("College cleared"); }
+
+    // ---------- EVENT LISTENERS ----------
+    shotCountSlider.addEventListener('input', () => { shotCountValue.innerText = shotCountSlider.value; });
+    startSequenceBtn.addEventListener('click', () => { const shots = parseInt(shotCountSlider.value); startSequence(shots); });
+    forceCaptureBtn.addEventListener('click', () => { const snap = captureHighRes(); if(snap) addPhotoToGallery(snap); });
+    clearGalleryBtn.addEventListener('click', () => { capturedPhotos = []; renderGallery(); showToast("Gallery cleared"); });
+
+    // filters
+    document.querySelectorAll('#filterGroup .btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#filterGroup .btn').forEach(b => b.classList.remove('active-layout'));
+            btn.classList.add('active-layout');
+            activeFilter = btn.getAttribute('data-filter');
+            showToast(`Filter: ${btn.innerText}`);
+        });
+    });
+
+    addCustomStickerBtn.addEventListener('click', () => { let val = customStickerInput.value.trim(); if(val) addSticker(val.slice(0,2)); customStickerInput.value = ''; });
+    clearAllStickersBtn.addEventListener('click', clearAllStickers);
+    generateCollegeBtn.addEventListener('click', generateCollegeFromAllCaptured);
+    downloadCollegeBtn.addEventListener('click', downloadCollegeWithLayout);
+    saveCollegePresetBtn.addEventListener('click', saveCollegePreset);
+    clearCollegeBtn.addEventListener('click', clearCollege);
+    layoutSelectorDiv.querySelectorAll('.layout-badge').forEach(lay => {
+        lay.addEventListener('click', () => {
+            layoutSelectorDiv.querySelectorAll('.layout-badge').forEach(l => l.classList.remove('active-layout'));
+            lay.classList.add('active-layout');
+            currentLayout = lay.getAttribute('data-layout');
+            showToast(`Layout: ${lay.innerText}`);
+        });
+    });
+
+    renderStickerLibrary();
+    renderActiveStickersList();
+    initCamera();
+    window.addEventListener('resize', () => resizeCanvas());
+    renderSavedPresets();
+</script>
+</body>
+</html>
