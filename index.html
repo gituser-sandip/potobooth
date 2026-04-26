@@ -1,11 +1,9 @@
-Here is the complete, professional-grade photobooth HTML document with advanced image editing, resizable emojis, 2-row college layout, and a polished UI.
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Fun PhotoBooth | Professional Studio</title>
+    <title>Pro Collage Studio | PhotoBooth</title>
     <style>
         * {
             margin: 0;
@@ -15,7 +13,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
         }
 
         body {
-            background: linear-gradient(135deg, #0f1117 0%, #1a1e2c 100%);
+            background: linear-gradient(135deg, #0c0f18 0%, #161c2c 100%);
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             min-height: 100vh;
             padding: 20px;
@@ -32,9 +30,9 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             margin-bottom: 28px;
         }
         .header h1 {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            background: linear-gradient(135deg, #FFFFFF, #D4AF37, #FF6B6B);
+            background: linear-gradient(135deg, #FFFFFF, #D4AF37, #E88D67);
             background-clip: text;
             -webkit-background-clip: text;
             color: transparent;
@@ -42,8 +40,8 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
         }
         .header p {
             color: #8E95B0;
-            margin-top: 8px;
-            font-size: 0.9rem;
+            margin-top: 6px;
+            font-size: 0.85rem;
         }
 
         /* Dashboard Grid */
@@ -56,20 +54,19 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
         @media (min-width: 1100px) {
             .camera-panel { flex: 2.2; }
             .edit-panel { flex: 1.3; }
-            .college-panel { flex: 1.8; }
+            .collage-panel { flex: 1.8; }
         }
 
         .panel {
-            background: rgba(22, 26, 40, 0.92);
+            background: rgba(18, 22, 35, 0.94);
             backdrop-filter: blur(20px);
             border-radius: 32px;
-            border: 1px solid rgba(212, 175, 55, 0.25);
-            padding: 24px;
-            box-shadow: 0 25px 40px rgba(0,0,0,0.3);
-            transition: all 0.2s;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            padding: 22px;
+            box-shadow: 0 25px 40px rgba(0,0,0,0.4);
         }
 
-        /* Video Stage - Fixed 4:3 ratio */
+        /* Video Stage */
         .video-stage {
             position: relative;
             background: #000000;
@@ -77,8 +74,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             overflow: hidden;
             width: 100%;
             aspect-ratio: 4 / 3;
-            border: 2px solid rgba(212, 175, 55, 0.6);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            border: 2px solid rgba(212, 175, 55, 0.7);
         }
         video, #liveCanvas {
             position: absolute;
@@ -96,17 +92,17 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            margin-top: 18px;
+            margin-top: 16px;
         }
         .btn {
             background: #2A2F48;
             border: none;
-            padding: 10px 18px;
+            padding: 9px 18px;
             border-radius: 40px;
             font-weight: 600;
             color: #E8EDFF;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.2s;
             font-size: 0.85rem;
             display: inline-flex;
             align-items: center;
@@ -117,7 +113,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
         .btn-success { background: #2C6E5C; }
         .btn-danger { background: #8B3A3A; }
         .btn-warning { background: #C47132; }
-        .btn:hover { transform: translateY(-1px); filter: brightness(1.05); }
+        .btn-info { background: #2A5F7A; }
 
         /* Gallery */
         .gallery-grid {
@@ -127,7 +123,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             max-height: 130px;
             overflow-y: auto;
             margin-top: 12px;
-            padding: 4px;
+            padding: 5px;
         }
         .gallery-img {
             width: 72px;
@@ -140,33 +136,33 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
         }
         .gallery-img:hover { transform: scale(1.05); }
 
-        /* College Canvas */
-        .college-canvas-container {
-            background: #0D0F17;
+        /* Collage Canvas */
+        .collage-canvas-container {
+            background: #0A0D14;
             border-radius: 20px;
             padding: 12px;
             margin: 16px 0;
         }
-        #collegeCanvas {
+        #collageCanvas {
             width: 100%;
             border-radius: 16px;
-            background: #161A28;
+            background: #121624;
             cursor: crosshair;
             display: block;
             touch-action: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
         }
 
-        /* Theme Selector */
-        .theme-buttons {
+        /* Theme & Layout Selectors */
+        .theme-buttons, .layout-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
             margin: 16px 0 12px 0;
         }
-        .theme-chip {
+        .theme-chip, .layout-chip {
             background: #2A2F48;
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 40px;
             font-size: 0.8rem;
             font-weight: 500;
@@ -174,7 +170,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             transition: all 0.15s;
             color: #C5CBE0;
         }
-        .theme-chip.active {
+        .theme-chip.active, .layout-chip.active {
             background: #D4AF37;
             color: #1A1E2C;
             font-weight: 600;
@@ -189,7 +185,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             max-height: 100px;
             overflow-y: auto;
             padding: 6px;
-            background: #1A1E2E;
+            background: #121725;
             border-radius: 20px;
         }
         .emoji-btn {
@@ -200,15 +196,15 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             cursor: pointer;
             width: 50px;
             text-align: center;
-            transition: all 0.1s;
+            transition: 0.1s;
             border: 1px solid #D4AF3740;
         }
         .emoji-btn:hover { transform: scale(1.1); background: #D4AF37; }
 
         .section-title {
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
-            margin: 18px 0 8px 0;
+            margin: 16px 0 8px 0;
             color: #D4AF37;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -229,7 +225,6 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             transition: 0.2s;
             z-index: 9999;
             font-size: 0.85rem;
-            pointer-events: none;
             border: 1px solid #D4AF37;
         }
 
@@ -242,38 +237,30 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             font-size: 0.85rem;
         }
 
-        .active-emojis-list {
-            background: #0D0F17;
-            border-radius: 20px;
-            padding: 12px;
-            min-height: 80px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-        .emoji-badge {
-            background: #2A2F48;
-            border-radius: 30px;
-            padding: 6px 14px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 1.2rem;
-            border: 1px solid #D4AF3760;
-        }
-        .resize-slider {
-            width: 80px;
-            margin-left: 8px;
-            cursor: pointer;
+        .countdown-overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(20px);
+            padding: 30px 50px;
+            border-radius: 60px;
+            font-size: 4rem;
+            font-weight: bold;
+            color: #D4AF37;
+            z-index: 10000;
+            font-family: monospace;
+            border: 2px solid #D4AF37;
+            display: none;
         }
     </style>
 </head>
 <body>
 <div class="app-container">
     <div class="header">
-        <h1>📸 Fun PhotoBooth</h1>
-        <p>Professional Studio | Smart College Layout | Resizable Emojis | Image Editing</p>
+        <h1>📸 Pro Collage Studio | PhotoBooth</h1>
+        <p>High-Res | 2-Columns | Adjustable Rows | Countdown Sequence | Multiple Layouts & Themes</p>
     </div>
 
     <div class="dashboard">
@@ -284,16 +271,18 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
                 <canvas id="liveCanvas"></canvas>
             </div>
             <div class="btn-group">
-                <button id="captureBtn" class="btn btn-primary">📸 Capture Photo</button>
+                <button id="captureBtn" class="btn btn-primary">📸 Capture</button>
                 <button id="sequenceBtn" class="btn">🎬 Sequence Mode</button>
                 <button id="clearGalleryBtn" class="btn btn-danger">🗑️ Clear Gallery</button>
             </div>
-            <div style="margin: 12px 0; display: flex; gap: 12px; align-items: center; flex-wrap: wrap;">
-                <label>Number of shots:</label>
-                <input type="number" id="shotCount" min="1" max="8" value="4" style="width: 70px;">
-                <span id="seqStatus" style="color: #D4AF37; font-size:0.8rem;">● Ready</span>
+            <div style="margin: 12px 0; display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                <label>📸 Shots:</label>
+                <input type="number" id="shotCount" min="1" max="12" value="4" style="width: 70px;">
+                <label>⏱️ Countdown (sec):</label>
+                <input type="number" id="countdownSecs" min="1" max="5" value="2" style="width: 70px;">
+                <span id="seqStatus" style="color: #D4AF37; font-size:0.75rem;">● Ready</span>
             </div>
-            <div class="section-title">📷 Photo Gallery (click to add to college)</div>
+            <div class="section-title">📷 Photo Gallery (click to add to collage)</div>
             <div id="galleryContainer" class="gallery-grid"></div>
         </div>
 
@@ -306,49 +295,69 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
                 <div data-filter="sepia" class="btn">Sepia</div>
                 <div data-filter="vintage" class="btn">Vintage</div>
                 <div data-filter="cool" class="btn">Cool Blue</div>
+                <div data-filter="warm" class="btn">Warm Glow</div>
             </div>
 
-            <div class="section-title">✨ Emoji Library (click to add)</div>
+            <div class="section-title">✨ Emoji Library (click to add to collage)</div>
             <div class="emoji-toolbar" id="emojiLibrary"></div>
             <div style="display: flex; gap: 8px; margin: 8px 0;">
-                <input type="text" id="customEmojiInput" placeholder="➕ Custom emoji or text" maxlength="3" style="flex:1;">
+                <input type="text" id="customEmojiInput" placeholder="➕ Custom emoji/text" maxlength="3" style="flex:1;">
                 <button id="addCustomEmojiBtn" class="btn">Add</button>
             </div>
 
-            <div class="section-title">📌 College Emojis (click to edit size | drag to reposition)</div>
-            <div id="activeEmojisList" class="active-emojis-list"></div>
-            <button id="clearAllEmojisBtn" class="btn btn-danger" style="width:100%; margin-top: 12px;">Clear All Emojis</button>
+            <div class="section-title">📌 Collage Emojis (click to remove)</div>
+            <div id="activeEmojisList" style="background:#0A0D14; border-radius: 20px; padding: 10px; min-height: 70px; display: flex; flex-wrap: wrap; gap: 8px;"></div>
+            <button id="clearAllEmojisBtn" class="btn btn-danger" style="width:100%; margin-top: 10px;">Clear All Emojis</button>
         </div>
 
-        <!-- COLLEGE PANEL -->
-        <div class="panel college-panel">
-            <div class="section-title">🎓 College Designer (2-Row Layout | Edit Images)</div>
-            <div class="theme-buttons" id="themeContainer">
-                <div data-theme="professional" class="theme-chip active">🎯 Professional</div>
-                <div data-theme="elegant" class="theme-chip">✨ Elegant Gold</div>
-                <div data-theme="dark" class="theme-chip">🌙 Dark Studio</div>
-                <div data-theme="vintage" class="theme-chip">📻 Vintage Paper</div>
+        <!-- COLLAGE PANEL -->
+        <div class="panel collage-panel">
+            <div class="section-title">🎨 Collage Designer</div>
+            
+            <!-- Layout Orientation -->
+            <div class="layout-buttons" id="layoutContainer">
+                <div data-layout="grid" class="layout-chip active">📐 Grid (2 Columns)</div>
+                <div data-layout="horizontal" class="layout-chip">↔️ Horizontal Strip</div>
+                <div data-layout="vertical" class="layout-chip">↕️ Vertical Strip</div>
             </div>
             
-            <div class="college-canvas-container">
-                <canvas id="collegeCanvas" width="700" height="500" style="width:100%; height:auto; border-radius: 16px;"></canvas>
-                <p style="font-size:11px; color:#8E95B0; text-align:center; margin-top:8px;">💡 Drag emojis • Click emoji to edit size • Right-click photo to remove</p>
+            <!-- Rows Adjustment -->
+            <div style="margin: 12px 0; display: flex; align-items: center; gap: 12px;">
+                <label>📏 Number of Rows:</label>
+                <input type="range" id="rowSlider" min="1" max="6" value="2" style="flex:1;">
+                <span id="rowValue" style="color:#D4AF37;">2</span>
+            </div>
+
+            <!-- Themes -->
+            <div class="theme-buttons" id="themeContainer">
+                <div data-theme="love" class="theme-chip">❤️ Love Story</div>
+                <div data-theme="fun" class="theme-chip">🎉 Fun Carnival</div>
+                <div data-theme="elegant" class="theme-chip active">✨ Elegant Gold</div>
+                <div data-theme="dark" class="theme-chip">🌙 Dark Mood</div>
+                <div data-theme="vintage" class="theme-chip">📻 Retro Film</div>
+                <div data-theme="nature" class="theme-chip">🌿 Nature Bliss</div>
+                <div data-theme="party" class="theme-chip">🎊 Party Neon</div>
+            </div>
+            
+            <div class="collage-canvas-container">
+                <canvas id="collageCanvas" width="700" height="500" style="width:100%; height:auto; border-radius: 16px;"></canvas>
+                <p style="font-size:11px; color:#8E95B0; text-align:center; margin-top:8px;">💡 Click emoji to add | Right-click photo to remove | Drag emojis</p>
             </div>
 
             <div class="btn-group">
-                <button id="generateCollegeBtn" class="btn btn-success">🖼️ Load Gallery to College</button>
-                <button id="editImagesBtn" class="btn btn-warning">✏️ Edit Images (Remove)</button>
-                <button id="previewCollegeBtn" class="btn btn-primary">👁️ Full Preview</button>
-                <button id="downloadCollegeBtn" class="btn">⬇️ Download College</button>
-                <button id="resetCollegeBtn" class="btn btn-danger">Reset Canvas</button>
+                <button id="generateCollageBtn" class="btn btn-success">🖼️ Load Gallery to Collage</button>
+                <button id="previewCollageBtn" class="btn btn-primary">👁️ Full Preview</button>
+                <button id="downloadCollageBtn" class="btn">⬇️ Download Collage</button>
+                <button id="resetCollageBtn" class="btn btn-danger">Reset Canvas</button>
             </div>
 
-            <div class="section-title">📚 Saved Colleges History</div>
+            <div class="section-title">📚 Saved Collages History</div>
             <div id="savedPreviews" style="display: flex; gap: 10px; overflow-x: auto; padding: 6px;"></div>
         </div>
     </div>
 </div>
 <div id="toastMsg" class="toast">● Ready</div>
+<div id="countdownOverlay" class="countdown-overlay"></div>
 
 <script>
     // ---------- DOM Elements ----------
@@ -357,6 +366,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
     const captureBtn = document.getElementById('captureBtn');
     const sequenceBtn = document.getElementById('sequenceBtn');
     const shotCountInput = document.getElementById('shotCount');
+    const countdownSecsInput = document.getElementById('countdownSecs');
     const seqStatus = document.getElementById('seqStatus');
     const clearGalleryBtn = document.getElementById('clearGalleryBtn');
     const galleryContainer = document.getElementById('galleryContainer');
@@ -366,39 +376,39 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
     const addCustomEmojiBtn = document.getElementById('addCustomEmojiBtn');
     const activeEmojisListDiv = document.getElementById('activeEmojisList');
     const clearAllEmojisBtn = document.getElementById('clearAllEmojisBtn');
-    const generateCollegeBtn = document.getElementById('generateCollegeBtn');
-    const editImagesBtn = document.getElementById('editImagesBtn');
-    const previewCollegeBtn = document.getElementById('previewCollegeBtn');
-    const downloadCollegeBtn = document.getElementById('downloadCollegeBtn');
-    const resetCollegeBtn = document.getElementById('resetCollegeBtn');
+    const generateCollageBtn = document.getElementById('generateCollageBtn');
+    const previewCollageBtn = document.getElementById('previewCollageBtn');
+    const downloadCollageBtn = document.getElementById('downloadCollageBtn');
+    const resetCollageBtn = document.getElementById('resetCollageBtn');
     const savedPreviewsDiv = document.getElementById('savedPreviews');
-    const collegeCanvas = document.getElementById('collegeCanvas');
-    const ctx = collegeCanvas.getContext('2d');
+    const collageCanvas = document.getElementById('collageCanvas');
+    const ctx = collageCanvas.getContext('2d');
     const toastEl = document.getElementById('toastMsg');
+    const countdownOverlay = document.getElementById('countdownOverlay');
 
     // ---------- State ----------
     let capturedPhotos = [];          // { dataUrl, timestamp }
     let activeFilter = 'none';
     let animationId = null;
-    let currentCollegePhotos = [];    // array of dataUrl strings
-    let collegeEmojis = [];           // { id, emoji, x, y, size }
-    let currentTheme = 'professional';
+    let currentCollagePhotos = [];    // array of dataUrl strings
+    let collageEmojis = [];           // { id, emoji, x, y, size }
+    let currentTheme = 'elegant';
+    let currentLayout = 'grid';       // grid, horizontal, vertical
+    let currentRows = 2;
     let nextEmojiId = 1;
     let canvasWidth = 700, canvasHeight = 500;
-    let isEditingMode = false;
-    let dragTargetId = null;
     let isDragging = false;
+    let dragTargetId = null;
     let dragOffsetX = 0, dragOffsetY = 0;
-    let selectedEmojiId = null;
 
-    // Resize canvas dynamically
+    // Resize canvas
     function resizeCanvasDimensions() {
-        const rect = collegeCanvas.getBoundingClientRect();
+        const rect = collageCanvas.getBoundingClientRect();
         canvasWidth = rect.width;
         canvasHeight = rect.height;
-        collegeCanvas.width = canvasWidth;
-        collegeCanvas.height = canvasHeight;
-        renderCollegeCanvas();
+        collageCanvas.width = canvasWidth;
+        collageCanvas.height = canvasHeight;
+        renderCollageCanvas();
     }
     window.addEventListener('resize', () => resizeCanvasDimensions());
 
@@ -408,11 +418,23 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
         setTimeout(() => toastEl.style.opacity = '0', duration);
     }
 
-    // ---------- Camera ----------
+    // Countdown function
+    async function runCountdown(seconds) {
+        for (let i = seconds; i > 0; i--) {
+            countdownOverlay.style.display = 'flex';
+            countdownOverlay.innerText = i;
+            await new Promise(r => setTimeout(r, 1000));
+        }
+        countdownOverlay.innerText = "📸 SMILE!";
+        await new Promise(r => setTimeout(r, 300));
+        countdownOverlay.style.display = 'none';
+    }
+
+    // ---------- High-Res Camera ----------
     async function initCamera() {
         try {
             const stream = await navigator.mediaDevices.getUserMedia({
-                video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 960 } }
+                video: { facingMode: "user", width: { ideal: 1920 }, height: { ideal: 1080 } }
             });
             video.srcObject = stream;
             await video.play();
@@ -436,6 +458,7 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             else if (type === 'sepia') { data[i]=Math.min(255, r*0.393+g*0.769+b*0.189); data[i+1]=Math.min(255, r*0.349+g*0.686+b*0.168); data[i+2]=Math.min(255, r*0.272+g*0.131+b*0.131); }
             else if (type === 'vintage') { data[i]=Math.min(255, r*1.15); data[i+1]=Math.min(255, g*0.85); data[i+2]=Math.min(255, b*0.7); }
             else if (type === 'cool') { data[i]=Math.min(255, r*0.85); data[i+1]=Math.min(255, g*0.95); data[i+2]=Math.min(255, b*1.2); }
+            else if (type === 'warm') { data[i]=Math.min(255, r*1.1); data[i+1]=Math.min(255, g*1.05); data[i+2]=Math.min(255, b*0.9); }
         }
     }
 
@@ -477,10 +500,10 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
         return canvas.toDataURL('image/png');
     }
 
-    function addPhotoToGallery(dataUrl) {
+    async function addPhotoToGallery(dataUrl) {
         capturedPhotos.push({ dataUrl, timestamp: Date.now() });
         renderGallery();
-        showToast("Photo captured");
+        showToast("📸 High-res photo captured");
     }
 
     function renderGallery() {
@@ -490,58 +513,76 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             const img = document.createElement('img');
             img.src = photo.dataUrl;
             img.className = 'gallery-img';
-            img.title = "Click to add to college";
+            img.title = "Click to add to collage";
             img.addEventListener('click', () => {
-                if (currentCollegePhotos.length < 12) {
-                    currentCollegePhotos.push(photo.dataUrl);
-                    renderCollegeCanvas();
-                    showToast("Added to college");
-                } else showToast("Max 12 photos (2 rows x 6 columns)");
+                if (currentCollagePhotos.length < 24) {
+                    currentCollagePhotos.push(photo.dataUrl);
+                    renderCollageCanvas();
+                    showToast("Added to collage");
+                } else showToast("Max 24 photos");
             });
             galleryContainer.appendChild(img);
         });
     }
 
-    async function startSequence(shots) {
-        seqStatus.innerText = `📸 Shooting...`;
-        for (let i = 1; i <= shots; i++) {
-            seqStatus.innerText = `Shot ${i}/${shots}`;
-            await new Promise(r => setTimeout(r, 550));
+    // Sequence with countdown between shots
+    async function startSequence(totalShots) {
+        seqStatus.innerText = `⏱️ Starting sequence...`;
+        for (let i = 1; i <= totalShots; i++) {
+            seqStatus.innerText = `Shot ${i}/${totalShots} - Get ready!`;
+            const countdownVal = parseInt(countdownSecsInput.value) || 2;
+            await runCountdown(countdownVal);
             const snap = captureHighRes();
-            if (snap) addPhotoToGallery(snap);
-            await new Promise(r => setTimeout(r, 300));
+            if (snap) {
+                addPhotoToGallery(snap);
+                await new Promise(r => setTimeout(r, 400));
+            }
         }
-        seqStatus.innerText = `✅ ${shots} photos captured`;
-        showToast(`Sequence complete: ${shots} photos`);
+        seqStatus.innerText = `✅ ${totalShots} high-res photos captured!`;
+        showToast(`Sequence complete: ${totalShots} photos`);
     }
 
-    // ---------- College Canvas: 2 ROWS Layout (max 2 rows, unlimited columns) ----------
-    function renderCollegeCanvas() {
+    // ---------- Collage Rendering with 2 Columns & Adjustable Rows ----------
+    function renderCollageCanvas() {
         ctx.clearRect(0, 0, canvasWidth, canvasHeight);
         
-        // Theme backgrounds
-        if (currentTheme === 'professional') { ctx.fillStyle = '#1E243B'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.strokeStyle = '#D4AF37'; ctx.lineWidth=2; ctx.strokeRect(10,10,canvasWidth-20,canvasHeight-20); }
-        else if (currentTheme === 'elegant') { ctx.fillStyle = '#2C2418'; ctx.fillRect(0,0,canvasWidth,canvasHeight); for(let i=0;i<40;i++){ ctx.fillStyle = '#D4AF37'; ctx.fillRect(20+Math.random()*canvasWidth-40, 20+Math.random()*canvasHeight-40, 2,2); } }
-        else if (currentTheme === 'dark') { ctx.fillStyle = '#0A0C15'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#2A2F48'; for(let i=0;i<20;i++){ ctx.fillRect(Math.random()*canvasWidth, Math.random()*canvasHeight, 4,4); } }
-        else { ctx.fillStyle = '#E8DCC8'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#8B7355'; ctx.font = "italic 14px serif"; ctx.fillText("vintage booth", 20,40); }
+        // Theme Backgrounds (AI designed themes)
+        if (currentTheme === 'love') { ctx.fillStyle = '#FFB7B2'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#E63946'; for(let i=0;i<30;i++){ ctx.fillText('❤️', Math.random()*canvasWidth, Math.random()*canvasHeight); } }
+        else if (currentTheme === 'fun') { ctx.fillStyle = '#FFEAA7'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#FF8C42'; for(let i=0;i<40;i++){ ctx.fillRect(Math.random()*canvasWidth, Math.random()*canvasHeight, 4,4); } }
+        else if (currentTheme === 'elegant') { ctx.fillStyle = '#1A1E2C'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.strokeStyle = '#D4AF37'; ctx.lineWidth=2; ctx.strokeRect(10,10,canvasWidth-20,canvasHeight-20); for(let i=0;i<50;i++){ ctx.fillStyle = '#D4AF37'; ctx.fillRect(5+Math.random()*canvasWidth-10, 5+Math.random()*canvasHeight-10, 2,2); } }
+        else if (currentTheme === 'dark') { ctx.fillStyle = '#0A0C15'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#2A2F48'; for(let i=0;i<30;i++){ ctx.fillRect(Math.random()*canvasWidth, Math.random()*canvasHeight, 3,3); } }
+        else if (currentTheme === 'vintage') { ctx.fillStyle = '#E8DCC8'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#8B7355'; ctx.font = "italic 16px serif"; ctx.fillText("📻 vintage film", 20,45); }
+        else if (currentTheme === 'nature') { ctx.fillStyle = '#2D5A3B'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#7CB342'; for(let i=0;i<60;i++){ ctx.fillRect(Math.random()*canvasWidth, Math.random()*canvasHeight, 2,2); } }
+        else if (currentTheme === 'party') { ctx.fillStyle = '#1A0A2E'; ctx.fillRect(0,0,canvasWidth,canvasHeight); ctx.fillStyle = '#FF00FF'; for(let i=0;i<80;i++){ ctx.fillText('✨', Math.random()*canvasWidth, Math.random()*canvasHeight); } }
         
-        // Draw photos: 2 ROWS layout (max rows = 2)
-        if (currentCollegePhotos.length > 0) {
-            const rows = 2;
-            const cols = Math.min(6, Math.ceil(currentCollegePhotos.length / rows));
+        // Draw photos based on layout (Grid uses 2 columns with adjustable rows)
+        if (currentCollagePhotos.length > 0) {
+            let cols, rows;
+            if (currentLayout === 'grid') {
+                cols = 2;  // FIXED 2 COLUMNS
+                rows = Math.min(currentRows, Math.ceil(currentCollagePhotos.length / cols));
+                if (rows < 1) rows = 1;
+            } else if (currentLayout === 'horizontal') {
+                rows = 1;
+                cols = Math.min(6, currentCollagePhotos.length);
+            } else { // vertical strip
+                cols = 1;
+                rows = Math.min(6, currentCollagePhotos.length);
+            }
+            
             const cellW = canvasWidth / cols;
             const cellH = canvasHeight / rows;
             let idx = 0;
             for (let r = 0; r < rows; r++) {
                 for (let c = 0; c < cols; c++) {
-                    if (idx >= currentCollegePhotos.length) break;
+                    if (idx >= currentCollagePhotos.length) break;
                     const img = new Image();
-                    img.src = currentCollegePhotos[idx];
-                    const x = c * cellW + 8;
-                    const y = r * cellH + 8;
-                    const w = cellW - 16;
-                    const h = cellH - 16;
-                    ctx.shadowBlur = 4;
+                    img.src = currentCollagePhotos[idx];
+                    const x = c * cellW + 6;
+                    const y = r * cellH + 6;
+                    const w = cellW - 12;
+                    const h = cellH - 12;
+                    ctx.shadowBlur = 3;
                     ctx.fillStyle = "#FFFFFF";
                     ctx.fillRect(x-2, y-2, w+4, h+4);
                     ctx.drawImage(img, x, y, w, h);
@@ -553,64 +594,48 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             ctx.fillStyle = '#6A6F8A'; ctx.font = "14px Inter"; ctx.fillText("📸 Load photos from gallery", canvasWidth/2-100, canvasHeight/2);
         }
         
-        // Draw emojis with size support
-        for (let e of collegeEmojis) {
-            const fontSize = (e.size || 32) * (canvasWidth / 700);
+        // Draw emojis
+        for (let e of collageEmojis) {
+            const fontSize = (e.size || 34) * (canvasWidth / 700);
             ctx.font = `${fontSize}px "Segoe UI Emoji", "Apple Color Emoji"`;
             ctx.fillStyle = "#FFFFFF";
             ctx.shadowBlur = 3;
             ctx.fillText(e.emoji, e.x-2, e.y-2);
             ctx.fillStyle = "#D4AF37";
             ctx.fillText(e.emoji, e.x, e.y);
-            if (selectedEmojiId === e.id) {
-                ctx.strokeStyle = "#D4AF37";
-                ctx.lineWidth = 2;
-                ctx.strokeRect(e.x-10, e.y-fontSize+5, fontSize+8, fontSize+4);
-            }
         }
         ctx.shadowBlur = 0;
     }
 
-    // Add emoji with default size
-    function addEmojiToCanvas(emoji, clientX, clientY) {
-        const rect = collegeCanvas.getBoundingClientRect();
+    // Add emoji to collage
+    function addEmojiToCollage(emoji, clientX, clientY) {
+        const rect = collageCanvas.getBoundingClientRect();
         const scaleX = canvasWidth / rect.width;
         const scaleY = canvasHeight / rect.height;
         let canvasX = (clientX - rect.left) * scaleX;
         let canvasY = (clientY - rect.top) * scaleY;
-        canvasX = Math.min(Math.max(canvasX, 30), canvasWidth-30);
-        canvasY = Math.min(Math.max(canvasY, 40), canvasHeight-40);
-        collegeEmojis.push({ id: nextEmojiId++, emoji: emoji, x: canvasX, y: canvasY, size: 36 });
-        renderCollegeCanvas();
+        canvasX = Math.min(Math.max(canvasX, 25), canvasWidth-25);
+        canvasY = Math.min(Math.max(canvasY, 35), canvasHeight-35);
+        collageEmojis.push({ id: nextEmojiId++, emoji: emoji, x: canvasX, y: canvasY, size: 34 });
+        renderCollageCanvas();
         renderActiveEmojisList();
-        showToast(`Added ${emoji} (drag to move, click to resize)`);
+        showToast(`Added ${emoji}`);
     }
 
     function renderActiveEmojisList() {
-        if (!collegeEmojis.length) { activeEmojisListDiv.innerHTML = '<span style="color:#6A6F8A;">No emojis on canvas. Click emojis from library ➕</span>'; return; }
+        if (!collageEmojis.length) { activeEmojisListDiv.innerHTML = '<span style="color:#6A6F8A;">No emojis on canvas. Click emojis from library</span>'; return; }
         activeEmojisListDiv.innerHTML = '';
-        collegeEmojis.forEach(e => {
+        collageEmojis.forEach(e => {
             const badge = document.createElement('div');
-            badge.className = 'emoji-badge';
-            badge.innerHTML = `
-                <span style="font-size:1.3rem;">${e.emoji}</span>
-                <input type="range" min="20" max="70" value="${e.size || 36}" class="resize-slider" data-id="${e.id}">
-                <span style="cursor:pointer; font-weight:bold;" data-id="${e.id}">✖️</span>
-            `;
+            badge.style.background = '#2A2F48'; badge.style.borderRadius = '30px'; badge.style.padding = '4px 12px';
+            badge.innerHTML = `${e.emoji} <span style="cursor:pointer; margin-left:8px;" data-id="${e.id}">❌</span>`;
             activeEmojisListDiv.appendChild(badge);
         });
-        document.querySelectorAll('.resize-slider').forEach(slider => {
-            slider.addEventListener('input', (ev) => {
-                const id = parseInt(slider.getAttribute('data-id'));
-                const emoji = collegeEmojis.find(e => e.id === id);
-                if (emoji) { emoji.size = parseInt(slider.value); renderCollegeCanvas(); }
-            });
-        });
-        document.querySelectorAll('.emoji-badge span:last-child').forEach(span => {
+        document.querySelectorAll('#activeEmojisList span').forEach(span => {
             span.addEventListener('click', (ev) => {
                 const id = parseInt(span.getAttribute('data-id'));
-                collegeEmojis = collegeEmojis.filter(e => e.id !== id);
-                renderCollegeCanvas();
+                collageEmojis = collageEmojis.filter(e => e.id !== id);
+                renderCollageCanvas();
                 renderActiveEmojisList();
                 showToast("Emoji removed");
                 ev.stopPropagation();
@@ -626,42 +651,58 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             else { clientX = e.clientX; clientY = e.clientY; }
             return { clientX, clientY };
         };
-        collegeCanvas.addEventListener('mousedown', startDrag);
-        collegeCanvas.addEventListener('touchstart', startDrag, { passive: false });
+        collageCanvas.addEventListener('mousedown', startDrag);
+        collageCanvas.addEventListener('touchstart', startDrag, { passive: false });
         window.addEventListener('mousemove', onDrag);
         window.addEventListener('touchmove', onDrag, { passive: false });
         window.addEventListener('mouseup', endDrag);
         window.addEventListener('touchend', endDrag);
-        collegeCanvas.addEventListener('click', (e) => {
+        
+        // Right-click to remove photo
+        collageCanvas.addEventListener('contextmenu', (e) => {
+            e.preventDefault();
             const { clientX, clientY } = getCoords(e);
-            const rect = collegeCanvas.getBoundingClientRect();
+            const rect = collageCanvas.getBoundingClientRect();
             const scaleX = canvasWidth / rect.width;
             const scaleY = canvasHeight / rect.height;
             const canvasX = (clientX - rect.left) * scaleX;
             const canvasY = (clientY - rect.top) * scaleY;
-            let clicked = false;
-            for (let em of collegeEmojis) {
-                const fontSize = (em.size || 36) * (canvasWidth / 700);
-                if (Math.abs(canvasX - em.x) < fontSize && Math.abs(canvasY - em.y) < fontSize) {
-                    selectedEmojiId = (selectedEmojiId === em.id) ? null : em.id;
-                    clicked = true;
-                    renderCollegeCanvas();
-                    break;
+            
+            let cols, rows;
+            if (currentLayout === 'grid') { cols = 2; rows = Math.min(currentRows, Math.ceil(currentCollagePhotos.length / cols)); }
+            else if (currentLayout === 'horizontal') { rows = 1; cols = Math.min(6, currentCollagePhotos.length); }
+            else { cols = 1; rows = Math.min(6, currentCollagePhotos.length); }
+            const cellW = canvasWidth / cols;
+            const cellH = canvasHeight / rows;
+            let idx = 0;
+            for (let r = 0; r < rows; r++) {
+                for (let c = 0; c < cols; c++) {
+                    if (idx >= currentCollagePhotos.length) break;
+                    const x = c * cellW + 6;
+                    const y = r * cellH + 6;
+                    const w = cellW - 12;
+                    const h = cellH - 12;
+                    if (canvasX > x && canvasX < x+w && canvasY > y && canvasY < y+h) {
+                        currentCollagePhotos.splice(idx, 1);
+                        renderCollageCanvas();
+                        showToast("Photo removed from collage");
+                        return;
+                    }
+                    idx++;
                 }
             }
-            if (!clicked) { selectedEmojiId = null; renderCollegeCanvas(); }
         });
         
         function startDrag(e) {
             const { clientX, clientY } = getCoords(e);
-            const rect = collegeCanvas.getBoundingClientRect();
+            const rect = collageCanvas.getBoundingClientRect();
             const scaleX = canvasWidth / rect.width;
             const scaleY = canvasHeight / rect.height;
             const canvasX = (clientX - rect.left) * scaleX;
             const canvasY = (clientY - rect.top) * scaleY;
-            for (let i = collegeEmojis.length-1; i >= 0; i--) {
-                const em = collegeEmojis[i];
-                const fontSize = (em.size || 36) * (canvasWidth / 700);
+            for (let i = collageEmojis.length-1; i >= 0; i--) {
+                const em = collageEmojis[i];
+                const fontSize = (em.size || 34) * (canvasWidth / 700);
                 if (Math.abs(canvasX - em.x) < fontSize && Math.abs(canvasY - em.y) < fontSize) {
                     dragTargetId = em.id;
                     dragOffsetX = em.x - canvasX;
@@ -675,93 +716,82 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
             if (!isDragging || dragTargetId === null) return;
             e.preventDefault();
             const { clientX, clientY } = getCoords(e);
-            const rect = collegeCanvas.getBoundingClientRect();
+            const rect = collageCanvas.getBoundingClientRect();
             const scaleX = canvasWidth / rect.width;
             const scaleY = canvasHeight / rect.height;
             let canvasX = (clientX - rect.left) * scaleX;
             let canvasY = (clientY - rect.top) * scaleY;
-            canvasX = Math.min(Math.max(canvasX + dragOffsetX, 25), canvasWidth-25);
-            canvasY = Math.min(Math.max(canvasY + dragOffsetY, 35), canvasHeight-35);
-            const target = collegeEmojis.find(e => e.id === dragTargetId);
-            if (target) { target.x = canvasX; target.y = canvasY; renderCollegeCanvas(); }
+            canvasX = Math.min(Math.max(canvasX + dragOffsetX, 20), canvasWidth-20);
+            canvasY = Math.min(Math.max(canvasY + dragOffsetY, 30), canvasHeight-30);
+            const target = collageEmojis.find(e => e.id === dragTargetId);
+            if (target) { target.x = canvasX; target.y = canvasY; renderCollageCanvas(); }
         }
         function endDrag() { isDragging = false; dragTargetId = null; }
     }
 
-    // Edit images: remove selected via right-click or edit mode
-    function enableImageEditMode() {
-        showToast("Edit mode: Click on any photo to remove it from college", 2000);
-        const tempHandler = (e) => {
-            const rect = collegeCanvas.getBoundingClientRect();
-            const scaleX = canvasWidth / rect.width;
-            const scaleY = canvasHeight / rect.height;
-            let clientX, clientY;
-            if (e.touches) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; }
-            else { clientX = e.clientX; clientY = e.clientY; }
-            const canvasX = (clientX - rect.left) * scaleX;
-            const canvasY = (clientY - rect.top) * scaleY;
-            const rows = 2;
-            const cols = Math.min(6, Math.ceil(currentCollegePhotos.length / rows));
-            const cellW = canvasWidth / cols;
-            const cellH = canvasHeight / rows;
-            let idx = 0;
-            for (let r = 0; r < rows; r++) {
-                for (let c = 0; c < cols; c++) {
-                    if (idx >= currentCollegePhotos.length) break;
-                    const x = c * cellW + 8;
-                    const y = r * cellH + 8;
-                    const w = cellW - 16;
-                    const h = cellH - 16;
-                    if (canvasX > x && canvasX < x+w && canvasY > y && canvasY < y+h) {
-                        currentCollegePhotos.splice(idx, 1);
-                        renderCollegeCanvas();
-                        showToast("Photo removed from college");
-                        collegeCanvas.removeEventListener('click', tempHandler);
-                        return;
-                    }
-                    idx++;
-                }
-            }
-            collegeCanvas.removeEventListener('click', tempHandler);
-        };
-        collegeCanvas.addEventListener('click', tempHandler, { once: true });
-        setTimeout(() => collegeCanvas.removeEventListener('click', tempHandler), 5000);
-    }
-
-    function loadGalleryToCollege() {
+    function loadGalleryToCollage() {
         if (!capturedPhotos.length) { showToast("No photos in gallery"); return; }
-        currentCollegePhotos = capturedPhotos.map(p => p.dataUrl).slice(0, 12);
-        renderCollegeCanvas();
-        showToast(`${currentCollegePhotos.length} photos loaded (2-rows layout)`);
+        currentCollagePhotos = capturedPhotos.map(p => p.dataUrl).slice(0, 24);
+        renderCollageCanvas();
+        showToast(`${currentCollagePhotos.length} photos loaded (${currentLayout} layout, ${currentRows} rows)`);
     }
 
-    function previewFullscreen() {
-        const win = window.open();
-        win.document.write(`<img src="${collegeCanvas.toDataURL()}" style="width:100%; background:#000;">`);
-        win.document.title = "College Preview";
-    }
-    function downloadCollege() { const a = document.createElement('a'); a.download = `photobooth_college.png`; a.href = collegeCanvas.toDataURL(); a.click(); showToast("College downloaded"); }
-    function resetCollege() { currentCollegePhotos = []; collegeEmojis = []; selectedEmojiId = null; renderCollegeCanvas(); renderActiveEmojisList(); showToast("Canvas reset"); }
-    function saveToHistory() { const previews = JSON.parse(localStorage.getItem('college_previews') || '[]'); previews.unshift({ dataUrl: collegeCanvas.toDataURL(), date: new Date().toLocaleTimeString() }); if(previews.length>6) previews.pop(); localStorage.setItem('college_previews', JSON.stringify(previews)); renderSavedPreviews(); showToast("Saved to history"); }
-    function renderSavedPreviews() { const previews = JSON.parse(localStorage.getItem('college_previews') || '[]'); savedPreviewsDiv.innerHTML = previews.map(p => `<img src="${p.dataUrl}" style="width:60px; height:60px; object-fit:cover; border-radius:8px; cursor:pointer;" onclick="window.open(this.src)">`).join('') || '<div style="color:#6A6F8A;">No saved colleges</div>'; }
+    function previewFullscreen() { const win = window.open(); win.document.write(`<img src="${collageCanvas.toDataURL()}" style="width:100%;">`); win.document.title = "Collage Preview"; }
+    function downloadCollage() { const a = document.createElement('a'); a.download = `collage_${currentTheme}.png`; a.href = collageCanvas.toDataURL(); a.click(); showToast("Collage downloaded"); }
+    function resetCollage() { currentCollagePhotos = []; collageEmojis = []; renderCollageCanvas(); renderActiveEmojisList(); showToast("Canvas reset"); }
+    function saveToHistory() { const previews = JSON.parse(localStorage.getItem('collage_previews') || '[]'); previews.unshift({ dataUrl: collageCanvas.toDataURL(), date: new Date().toLocaleTimeString() }); if(previews.length>6) previews.pop(); localStorage.setItem('collage_previews', JSON.stringify(previews)); renderSavedPreviews(); showToast("Saved to history"); }
+    function renderSavedPreviews() { const previews = JSON.parse(localStorage.getItem('collage_previews') || '[]'); savedPreviewsDiv.innerHTML = previews.map(p => `<img src="${p.dataUrl}" style="width:60px;height:60px;object-fit:cover;border-radius:10px;cursor:pointer;" onclick="window.open(this.src)">`).join('') || '<div style="color:#6A6F8A;">No saved collages</div>'; }
 
     // Event Listeners
-    captureBtn.addEventListener('click', () => { const snap = captureHighRes(); if(snap) addPhotoToGallery(snap); });
+    captureBtn.addEventListener('click', async () => { const snap = captureHighRes(); if(snap) addPhotoToGallery(snap); });
     sequenceBtn.addEventListener('click', () => startSequence(parseInt(shotCountInput.value) || 4));
     clearGalleryBtn.addEventListener('click', () => { capturedPhotos = []; renderGallery(); showToast("Gallery cleared"); });
-    generateCollegeBtn.addEventListener('click', loadGalleryToCollege);
-    editImagesBtn.addEventListener('click', enableImageEditMode);
-    previewCollegeBtn.addEventListener('click', previewFullscreen);
-    downloadCollegeBtn.addEventListener('click', downloadCollege);
-    resetCollegeBtn.addEventListener('click', resetCollege);
-    clearAllEmojisBtn.addEventListener('click', () => { collegeEmojis = []; selectedEmojiId = null; renderCollegeCanvas(); renderActiveEmojisList(); showToast("All emojis cleared"); });
-    addCustomEmojiBtn.addEventListener('click', () => { let val = customEmojiInput.value.trim(); if(val) addEmojiToCanvas(val.slice(0,2), collegeCanvas.getBoundingClientRect().left + canvasWidth/2, collegeCanvas.getBoundingClientRect().top + canvasHeight/2); customEmojiInput.value = ''; });
-    document.querySelectorAll('.theme-chip').forEach(chip => { chip.addEventListener('click', () => { document.querySelectorAll('.theme-chip').forEach(c=>c.classList.remove('active')); chip.classList.add('active'); currentTheme = chip.getAttribute('data-theme'); renderCollegeCanvas(); }); });
-    document.querySelectorAll('#filterGroup .btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('#filterGroup .btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); activeFilter = btn.getAttribute('data-filter'); }); });
+    generateCollageBtn.addEventListener('click', loadGalleryToCollage);
+    previewCollageBtn.addEventListener('click', previewFullscreen);
+    downloadCollageBtn.addEventListener('click', downloadCollage);
+    resetCollageBtn.addEventListener('click', resetCollage);
+    clearAllEmojisBtn.addEventListener('click', () => { collageEmojis = []; renderCollageCanvas(); renderActiveEmojisList(); showToast("All emojis cleared"); });
+    addCustomEmojiBtn.addEventListener('click', () => { let val = customEmojiInput.value.trim(); if(val) addEmojiToCollage(val.slice(0,2), collageCanvas.getBoundingClientRect().left + canvasWidth/2, collageCanvas.getBoundingClientRect().top + canvasHeight/2); customEmojiInput.value = ''; });
     
-    const defaultEmojis = ['🐶', '🐱', '😎', '❤️', '😂', '🔥', '✨', '🌟', '🎉', '💎', '👑', '🌈'];
+    // Row slider
+    const rowSlider = document.getElementById('rowSlider');
+    const rowValue = document.getElementById('rowValue');
+    rowSlider.addEventListener('input', () => { currentRows = parseInt(rowSlider.value); rowValue.innerText = currentRows; renderCollageCanvas(); });
+    
+    // Layout selector
+    document.querySelectorAll('.layout-chip').forEach(lay => {
+        lay.addEventListener('click', () => {
+            document.querySelectorAll('.layout-chip').forEach(l=>l.classList.remove('active'));
+            lay.classList.add('active');
+            currentLayout = lay.getAttribute('data-layout');
+            renderCollageCanvas();
+            showToast(`Layout: ${currentLayout}`);
+        });
+    });
+    
+    // Theme selector
+    document.querySelectorAll('.theme-chip').forEach(chip => {
+        chip.addEventListener('click', () => {
+            document.querySelectorAll('.theme-chip').forEach(c=>c.classList.remove('active'));
+            chip.classList.add('active');
+            currentTheme = chip.getAttribute('data-theme');
+            renderCollageCanvas();
+        });
+    });
+    
+    document.querySelectorAll('#filterGroup .btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('#filterGroup .btn').forEach(b=>b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.getAttribute('data-filter');
+        });
+    });
+    
+    const defaultEmojis = ['🐶', '🐱', '😎', '❤️', '😂', '🔥', '✨', '🌟', '🎉', '💎', '👑', '🌈', '🎈', '💋', '🤍', '⭐'];
     emojiLibraryDiv.innerHTML = defaultEmojis.map(emo => `<div class="emoji-btn">${emo}</div>`).join('');
-    document.querySelectorAll('.emoji-btn').forEach(btn => { btn.addEventListener('click', (e) => { addEmojiToCanvas(btn.innerText, collegeCanvas.getBoundingClientRect().left + canvasWidth/2, collegeCanvas.getBoundingClientRect().top + canvasHeight/2); }); });
+    document.querySelectorAll('.emoji-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => { addEmojiToCollage(btn.innerText, collageCanvas.getBoundingClientRect().left + canvasWidth/2, collageCanvas.getBoundingClientRect().top + canvasHeight/2); });
+    });
     
     initCamera();
     setupDragEvents();
@@ -771,4 +801,3 @@ Here is the complete, professional-grade photobooth HTML document with advanced 
 </script>
 </body>
 </html>
-```
